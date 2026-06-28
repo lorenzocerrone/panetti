@@ -421,3 +421,49 @@ input[type="range"]::-moz-range-thumb {
   z-index: 50;
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ---------- Mobile: tablet / large phone ---------- */
+@media (max-width: 720px) {
+  body { padding: 14px; }
+  .topbar { margin-bottom: 16px; gap: 12px; }
+  .foot { margin-top: 18px; }
+
+  /* Stack the topbar: brand on its own row, controls full-width below */
+  .topbar { flex-wrap: wrap; }
+  .brand { flex: 1 0 100%; }
+  .topbar-right { flex: 1 0 100%; justify-content: space-between; }
+  .mode-toggle { flex: 1; }
+  .mode-toggle button { flex: 1; }
+
+  /* Scale down headings */
+  .brand h1 { font-size: 24px; }
+  .brand-mark { font-size: 30px; }
+  .panel-head h2 { font-size: 18px; }
+  .big-num { font-size: 27px; }
+
+  /* Tighter cards */
+  .panel { padding: 16px; }
+
+  /* Touch-friendly controls */
+  .mode-toggle button { padding: 11px 16px; }
+  .seg button { padding: 10px 16px; }
+  .ghost-btn { padding: 9px 14px; }
+  .field input { padding: 13px; }
+  input[type="range"] { height: 8px; }
+  input[type="range"]::-webkit-slider-thumb { width: 22px; height: 22px; }
+  input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; }
+}
+
+/* ---------- Mobile: small phone ---------- */
+@media (max-width: 480px) {
+  body { padding: 12px; }
+  .panel { padding: 14px; }
+  .brand h1 { font-size: 22px; }
+  .big-num { font-size: 24px; }
+
+  /* Stack the 2-column sub-grids so values aren't cramped */
+  .batch,
+  .guide-grid,
+  .headline,
+  .preferment-breakdown { grid-template-columns: 1fr; }
+}
