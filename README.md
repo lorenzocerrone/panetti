@@ -27,27 +27,58 @@ All data and text live in editable JSON files loaded at runtime — **no build s
 
 ```
 config/
-  recipes.json      # the pre-built styles: numbers only (hydration, salt, yeast, oil,
-                    #   sugar, starter %, ball weight, emoji). Add an entry to add a recipe.
+  recipes.json      # the pre-built styles: each entry has its numbers (hydration, salt,
+                    #   yeast, oil, sugar, starter %, ball weight, emoji) AND its text per
+                    #   language under i18n.<lang> = { name, blurb, notes, tip }.
   adjustments.json  # the tunables: slider ranges/steps/colors, leavening conversion
                     #   factors, preferment hydration %, the small preferment yeast dose,
                     #   sourdough starter defaults/ranges, and the ferment-guide formulas.
 locales/
-  en.json           # BASE — every string: UI labels, ingredient/leavening/preferment
-                    #   names, tips, recipe text, and the step-by-step method templates.
+  en.json           # BASE — the UI strings: labels, ingredient/leavening/preferment names,
+                    #   the generic sourdough tip, and the step-by-step method templates.
   it.json           # Italian overlay; any missing key falls back to the English base.
 ```
+
+**Recipes are self-contained:** a recipe's numbers and all its localized text live together
+in one `config/recipes.json` entry, so you edit a recipe (in any language) in a single place.
+Missing a translation? `i18n.<lang>` falls back to `i18n.en`.
 
 **Method steps** are data: each scenario (`straight`, `preferment`, `sourdough`) is an array
 of templates in the locale files, with `{placeholders}` (e.g. `{flour}`, `{preWater}`,
 `{count}`) filled in with the live amounts. Edit, reorder, or add steps without touching code.
-To add a recipe: add its numbers to `config/recipes.json` and its `name`/`blurb`/`notes` under
-`recipes.<id>` in each locale. To add a language: drop in `locales/<code>.json` and add the
-code to `LANGS` in `app.js`.
+To add a recipe: add one entry to `config/recipes.json` with its numbers and an `i18n` block.
+To add a language: drop in `locales/<code>.json`, add an `i18n.<code>` block to each recipe,
+and add the code to `LANGS` in `i18n.js`.
 
 > ⚠️ Because the config is fetched at runtime, the page must be **served over http**
 > (`python3 -m http.server`, GitHub Pages, …) — opening `index.html` directly from disk
 > (`file://`) is blocked by the browser and shows a friendly message.
+
+## Pages & content (Markdown)
+
+Beyond the calculator there are two content pages — **About** (`about.html`) and
+**Guides** (`guides.html`) — whose prose lives in plain Markdown, one file per language,
+rendered in the browser by the vendored [`lib/snarkdown.js`](lib/snarkdown.js) (no build,
+no CDN, works offline):
+
+```
+content/
+  about.<lang>.md        # the About page
+  guide-<id>.<lang>.md   # one guide article per id
+config/
+  pages.json             # the guides list: [{ "id": "flour", "emoji": "🌾" }, …]
+```
+
+Missing a translation? The loader falls back to the English file automatically
+(`<slug>.en.md`), exactly like the locale JSON fallback.
+
+**To add a guide:** drop `content/guide-<id>.en.md` (and any `content/guide-<id>.<lang>.md`
+translations), add one line `{ "id": "<id>", "emoji": "…" }` to `config/pages.json`, and a
+title under `guides.<id>.title` in each `locales/*.json`. No code changes.
+
+> Markdown notes: snarkdown is a tiny renderer — keep each list item on a **single line**
+> and avoid tables (use lists). Headings, bold/italic, links, inline `code`, blockquotes
+> and code blocks all work.
 
 ## The math
 
@@ -71,7 +102,7 @@ python3 -m http.server 8000   # then visit http://localhost:8000
 ## Deploy to GitHub Pages
 
 A GitHub Actions workflow at `.github/workflows/pages.yml` validates the site
-(JSON config/locales parse, `app.js` syntax) on every push and pull request,
+(JSON config/locales parse, JS syntax) on every push and pull request,
 then deploys to Pages when validation passes on `main`.
 
 1. Push these files to a repo (the site lives at the repo root).
@@ -85,7 +116,23 @@ then deploys to Pages when validation passes on `main`.
 
 ## Customising recipes
 
-All recipe data lives in [`config/recipes.json`](config/recipes.json). Add an
-entry keyed by recipe id — `yeast` is expressed as **fresh-yeast %** and is
-converted automatically for the other yeast types — then add its
-`name`/`blurb`/`notes` under `recipes.<id>` in each `locales/*.json` file.
+All recipe data lives in [`config/recipes.json`](config/recipes.json) — numbers
+**and** localized text in one entry. Add an object with an `id`, the numbers
+(`yeast` is expressed as **fresh-yeast %** and converted automatically for the
+other yeast types), and an `i18n` block with `{ name, blurb, notes, tip }` for
+each language:
+
+```json
+{
+  "id": "my-style", "emoji": "🍕",
+  "hydration": 65, "salt": 2.5, "yeast": 0.2, "oil": 0, "sugar": 0,
+  "starter": 15, "ballWeight": 250,
+  "i18n": {
+    "en": { "name": "…", "blurb": "…", "notes": "…", "tip": "…" },
+    "it": { "name": "…", "blurb": "…", "notes": "…", "tip": "…" }
+  }
+}
+```
+
+No locale-file edits are needed for a recipe — `locales/*.json` hold only UI
+strings. A missing `i18n.<lang>` falls back to `i18n.en`.

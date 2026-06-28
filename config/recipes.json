@@ -1,6 +1,82 @@
 [
-  { "id": "neapolitan",               "emoji": "🇮🇹", "hydration": 60, "salt": 2.8, "yeast": 0.2,  "oil": 0, "sugar": 0, "starter": 15, "ballWeight": 250 },
-  { "id": "neapolitan-contemporanea", "emoji": "🎈", "hydration": 70, "salt": 2.8, "yeast": 0.15, "oil": 0, "sugar": 0, "starter": 15, "ballWeight": 280 },
-  { "id": "roman-teglia",             "emoji": "🔲", "hydration": 80, "salt": 2.2, "yeast": 0.3,  "oil": 3, "sugar": 0, "starter": 20, "ballWeight": 1000 },
-  { "id": "focaccia",                 "emoji": "🫓", "hydration": 80, "salt": 2.5, "yeast": 0.4,  "oil": 6, "sugar": 0, "starter": 20, "ballWeight": 800 }
+  {
+    "id": "neapolitan",
+    "emoji": "🇮🇹",
+    "hydration": 60, "salt": 2.8, "yeast": 0.2, "oil": 0, "sugar": 0,
+    "starter": 15, "ballWeight": 250,
+    "i18n": {
+      "en": {
+        "name": "Neapolitan Verace",
+        "blurb": "Classic Napoletana. Soft, airy cornicione. Wood-fired, ~90s bake.",
+        "notes": "AVPN style: 00 flour, long room-temp proof (8–24h). No oil, no sugar.",
+        "tip": "Tip: 8–24h room-temp bulk, then ball 4–6h before bake."
+      },
+      "it": {
+        "name": "Napoletana Verace",
+        "blurb": "Napoletana classica. Cornicione morbido e arioso. Forno a legna, ~90s.",
+        "notes": "Stile AVPN: farina 00, lunga lievitazione a temperatura ambiente (8–24h). Niente olio né zucchero.",
+        "tip": "Consiglio: 8–24h di puntata a temperatura ambiente, poi forma i panetti 4–6h prima della cottura."
+      }
+    }
+  },
+  {
+    "id": "neapolitan-contemporanea",
+    "emoji": "🎈",
+    "hydration": 70, "salt": 2.8, "yeast": 0.15, "oil": 0, "sugar": 0,
+    "starter": 15, "ballWeight": 280,
+    "i18n": {
+      "en": {
+        "name": "Neapolitan Contemporanea",
+        "blurb": "Modern Neapolitan: tall, airy 'canotto' rim with a light, open crumb.",
+        "notes": "High hydration (~70%), strong flour, long cold ferment. No oil or sugar.",
+        "tip": "Tip: high hydration + cold ferment 24–48h for a tall, blistered canotto rim."
+      },
+      "it": {
+        "name": "Napoletana Contemporanea",
+        "blurb": "Napoletana moderna: cornicione alto e arioso a 'canotto', mollica leggera e alveolata.",
+        "notes": "Alta idratazione (~70%), farina forte, lunga lievitazione in frigo. Niente olio né zucchero.",
+        "tip": "Consiglio: alta idratazione + lievitazione in frigo 24–48h per un cornicione alto e a 'canotto'."
+      }
+    }
+  },
+  {
+    "id": "roman-teglia",
+    "emoji": "🔲",
+    "hydration": 80, "salt": 2.2, "yeast": 0.3, "oil": 3, "sugar": 0,
+    "starter": 20, "ballWeight": 1000,
+    "i18n": {
+      "en": {
+        "name": "Romana alla Teglia",
+        "blurb": "High-hydration pan pizza, light & blistered crumb, cut into squares.",
+        "notes": "Very wet dough, stretch-and-folds. One 'panetto' fills a large tray.",
+        "tip": "Tip: 3–4 stretch & folds, then 24h cold proof."
+      },
+      "it": {
+        "name": "Romana alla Teglia",
+        "blurb": "Pizza in teglia ad alta idratazione, mollica leggera e alveolata, tagliata a quadri.",
+        "notes": "Impasto molto idratato, pieghe di rinforzo. Un 'panetto' riempie una teglia grande.",
+        "tip": "Consiglio: 3–4 pieghe di rinforzo, poi 24h di lievitazione in frigo."
+      }
+    }
+  },
+  {
+    "id": "focaccia",
+    "emoji": "🫓",
+    "hydration": 80, "salt": 2.5, "yeast": 0.4, "oil": 6, "sugar": 0,
+    "starter": 20, "ballWeight": 800,
+    "i18n": {
+      "en": {
+        "name": "Focaccia",
+        "blurb": "Dimpled, olive-oil drenched, airy. Not strictly pizza — but essential.",
+        "notes": "Long cold proof, lots of oil on top before dimpling.",
+        "tip": "Tip: dimple with oily fingers right before baking."
+      },
+      "it": {
+        "name": "Focaccia",
+        "blurb": "Con fossette, intrisa d'olio d'oliva, ariosa. Non proprio pizza — ma essenziale.",
+        "notes": "Lunga lievitazione in frigo, tanto olio in superficie prima di fare le fossette.",
+        "tip": "Consiglio: forma le fossette con le dita unte d'olio appena prima di infornare."
+      }
+    }
+  }
 ]
