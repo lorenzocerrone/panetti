@@ -9,6 +9,11 @@
 let I18N = {}, LOCALE = "en";
 const LANGS = { en: "EN", it: "IT" };
 
+/* Cache-busting token, rewritten to the commit SHA at deploy time (see
+   .github/workflows/pages.yml). Stays the literal "__BUILD__" in local dev,
+   which is harmless — the same file is served either way. */
+const ASSET_VERSION = "__BUILD__";
+
 /* Recursively overlay `over` on top of `base`; arrays/scalars from `over` win,
    missing keys fall back to `base` (English). */
 function deepMerge(base, over) {
@@ -37,7 +42,7 @@ function t(key, params) {
 }
 
 async function fetchJson(path) {
-  const res = await fetch(path);
+  const res = await fetch(path + (path.includes("?") ? "&" : "?") + "v=" + ASSET_VERSION);
   if (!res.ok) throw new Error("Failed to load " + path);
   return res.json();
 }

@@ -21,8 +21,8 @@ async function loadLocale(l) {
 
 /* Fetch a content file for the active language, falling back to English. */
 async function fetchMarkdown(slug, l) {
-  let res = await fetch(`content/${slug}.${l}.md`);
-  if (!res.ok && l !== "en") res = await fetch(`content/${slug}.en.md`);
+  let res = await fetch(`content/${slug}.${l}.md?v=${ASSET_VERSION}`);
+  if (!res.ok && l !== "en") res = await fetch(`content/${slug}.en.md?v=${ASSET_VERSION}`);
   if (!res.ok) return "*Content not found.*";
   return res.text();
 }
