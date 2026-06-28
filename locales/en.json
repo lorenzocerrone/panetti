@@ -53,8 +53,8 @@
     "copyLeaveningYeast": "Yeast: {label}",
     "copyLeaveningSourdough": "Leavening: Sourdough ({pct}% starter @ {hyd}% hyd)",
     "loadError": "Couldn't load the config files. Serve this page over http (e.g. python3 -m http.server) instead of opening it directly from disk.",
-    "flourGuideTitle": "Guide: choosing the right flour",
-    "kneadingLink": "🤲 How to knead the dough →"
+    "learnMore": "Want to know more?",
+    "source": "Source: {label}"
   },
 
   "nav": {

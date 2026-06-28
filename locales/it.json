@@ -53,8 +53,8 @@
     "copyLeaveningYeast": "Lievito: {label}",
     "copyLeaveningSourdough": "Lievitazione: Pasta madre ({pct}% di pasta madre, idratazione {hyd}%)",
     "loadError": "Impossibile caricare i file di configurazione. Servi la pagina tramite http (es. python3 -m http.server) invece di aprirla direttamente dal disco.",
-    "flourGuideTitle": "Guida: scegliere la farina giusta",
-    "kneadingLink": "🤲 Come impastare →"
+    "learnMore": "Vuoi saperne di più?",
+    "source": "Fonte: {label}"
   },
 
   "nav": {

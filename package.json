@@ -1,7 +1,7 @@
 {
   "name": "panetti",
-  "version": "1.0.0",
-  "description": "A dependency-free pizza dough calculator using baker's percentages.",
+  "version": "2.0.0",
+  "description": "A pizza dough calculator using baker's percentages.",
   "keywords": [
     "pizza",
     "dough",
@@ -12,7 +12,23 @@
   ],
   "license": "MIT",
   "private": true,
+  "type": "module",
   "scripts": {
-    "start": "python3 -m http.server 8000"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "snarkdown": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.1",
+    "happy-dom": "^20.10.6",
+    "typescript": "^5.6.0",
+    "vite": "^6.0.0",
+    "vitest": "^2.1.0"
   }
 }

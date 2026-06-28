@@ -48,21 +48,19 @@ of templates in the locale files, with `{placeholders}` (e.g. `{flour}`, `{preWa
 `{count}`) filled in with the live amounts. Edit, reorder, or add steps without touching code.
 To add a recipe: add one entry to `config/recipes.json` with its numbers and an `i18n` block.
 To add a language: drop in `locales/<code>.json`, add an `i18n.<code>` block to each recipe,
-and add the code to `LANGS` in `i18n.js`.
+and register the code in `LOCALES`/`LANGS` in `src/data/locales.ts`.
 
-> ⚠️ Because the config is fetched at runtime, the page must be **served over http**
-> (`python3 -m http.server`, GitHub Pages, …) — opening `index.html` directly from disk
-> (`file://`) is blocked by the browser and shows a friendly message.
+> Config and locales are bundled at build time (typed imports), so a bad recipe field or a
+> missing slider key is caught by `npm run typecheck` rather than failing silently at runtime.
 
 ## Pages & content (Markdown)
 
 Beyond the calculator there are two content pages — **About** (`about.html`) and
 **Guides** (`guides.html`) — whose prose lives in plain Markdown, one file per language,
-rendered in the browser by the vendored [`lib/snarkdown.js`](lib/snarkdown.js) (no build,
-no CDN, works offline):
+fetched at runtime and rendered with the bundled [`snarkdown`](https://github.com/developit/snarkdown):
 
 ```
-content/
+public/content/
   about.<lang>.md        # the About page
   guide-<id>.<lang>.md   # one guide article per id
 config/
@@ -91,28 +89,32 @@ water      = flour × hydration%
 …and so on for each ingredient.
 ```
 
-## Run locally
+## Develop locally
 
-It's a static site — just open `index.html`, or serve it:
+A small Vite + TypeScript toolchain. The dough math lives in a pure, unit-tested
+engine (`src/engine/`); the UI is framework-free imperative DOM code.
 
 ```bash
-python3 -m http.server 8000   # then visit http://localhost:8000
+npm install
+npm run dev         # start the dev server
+npm test            # run the engine + UI tests
+npm run typecheck   # strict TypeScript check
+npm run build       # emit the static site to dist/
+npm run preview     # serve the built dist/ locally
 ```
 
 ## Deploy to GitHub Pages
 
-A GitHub Actions workflow at `.github/workflows/pages.yml` validates the site
-(JSON config/locales parse, JS syntax) on every push and pull request,
-then deploys to Pages when validation passes on `main`.
+A GitHub Actions workflow at `.github/workflows/pages.yml` runs `typecheck → test → build`
+on every push and pull request, then deploys the built `dist/` to Pages on `main`.
 
-1. Push these files to a repo (the site lives at the repo root).
+1. Push to a repo.
 2. **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-3. Push to `main` (or run the workflow manually) — the `validate` job runs,
-   then `deploy` publishes to `https://<user>.github.io/<repo>/`.
+3. Push to `main` (or run the workflow manually) — the `build` job runs the checks,
+   then `deploy` publishes `dist/` to `https://<user>.github.io/<repo>/`.
 
-> Prefer no Actions? Pick **Source: Deploy from a branch** → `main` / `/ (root)`
-> instead; the workflow's deploy step is then skipped, but CI validation still
-> runs on pushes and PRs.
+> The build uses a relative base (`base: "./"`), so it works at a domain root or under
+> a project subpath without configuration. Asset filenames are content-hashed for cache busting.
 
 ## Customising recipes
 
