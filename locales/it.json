@@ -53,8 +53,9 @@
     "copyLeaveningYeast": "Lievito: {label}",
     "copyLeaveningSourdough": "Lievitazione: Pasta madre ({pct}% di pasta madre, idratazione {hyd}%)",
     "loadError": "Impossibile caricare i file di configurazione. Servi la pagina tramite http (es. python3 -m http.server) invece di aprirla direttamente dal disco.",
-    "flourGuideTitle": "Guida: scegliere la farina giusta",
-    "kneadingLink": "🤲 Come impastare →"
+    "learnMore": "Vuoi saperne di più?",
+    "notes": "📝 Note",
+    "source": "Fonte: {label}"
   },
 
   "nav": {
@@ -117,9 +118,10 @@
     "finalYeastClause": " + <b>{amount}</b> di lievito",
     "poolishWindow": "12–16h a temperatura ambiente finché è pieno di bolle e cupoliforme",
     "bigaWindow": "12–18h (meglio se al fresco) finché è cresciuta e alveolata",
+    "basicNote": "Questo è l'impasto base mescola-e-impasta. Metodi più avanzati (autolisi, slap-and-fold, pieghe di rinforzo) sviluppano più glutine per una mollica più leggera e ariosa.",
     "straight": [
-      "Mescola <b>{flour}</b> di farina, <b>{water}</b> di acqua e <b>{yeast}</b> di lievito; lascia riposare 15–20 min.",
-      "Aggiungi <b>{salt}</b> di sale{extrasClause}; impasta fino a ottenere un impasto liscio ed elastico.",
+      "Mescola <b>{flour}</b> di farina, <b>{water}</b> di acqua, <b>{yeast}</b> di lievito e <b>{salt}</b> di sale{extrasClause} finché non resta farina asciutta.",
+      "Lascia riposare 15 min, poi impasta fino a renderlo liscio ed elastico.",
       "Puntata di ~{hours}h, o finché raddoppia circa.",
       "Dividi in <b>{count}</b> panetti da <b>{ballWeight}</b> e forma delle palline strette.",
       "Lievitazione 2–4h (o in frigo per la notte), poi stendi, condisci e cuoci alla massima temperatura del forno."

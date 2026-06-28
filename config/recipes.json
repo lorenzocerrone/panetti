@@ -2,20 +2,24 @@
   {
     "id": "neapolitan",
     "emoji": "🇮🇹",
-    "hydration": 60, "salt": 2.8, "yeast": 0.2, "oil": 0, "sugar": 0,
+    "hydration": 59, "salt": 2.9, "yeast": 0.15, "oil": 0, "sugar": 0,
     "starter": 15, "ballWeight": 250,
+    "source": {
+      "url": "https://www.pizzanapoletana.org/it/ricetta_pizza_napoletana",
+      "label": "Disciplinare AVPN"
+    },
     "i18n": {
       "en": {
         "name": "Neapolitan Verace",
         "blurb": "Classic Napoletana. Soft, airy cornicione. Wood-fired, ~90s bake.",
-        "notes": "AVPN style: 00 flour, long room-temp proof (8–24h). No oil, no sugar.",
-        "tip": "Tip: 8–24h room-temp bulk, then ball 4–6h before bake."
+        "notes": "AVPN disciplinare: 00 or 0 flour, ~55–62% hydration, salt 40–60 g per litre of water, very little fresh yeast (0.1–3 g/L) or 5–20% starter. No oil, no sugar.",
+        "tip": "Tip: 8–24h total fermentation at room temp (plus up to ~4h working), then bake at 430–480°C for 60–90s."
       },
       "it": {
         "name": "Napoletana Verace",
         "blurb": "Napoletana classica. Cornicione morbido e arioso. Forno a legna, ~90s.",
-        "notes": "Stile AVPN: farina 00, lunga lievitazione a temperatura ambiente (8–24h). Niente olio né zucchero.",
-        "tip": "Consiglio: 8–24h di puntata a temperatura ambiente, poi forma i panetti 4–6h prima della cottura."
+        "notes": "Disciplinare AVPN: farina 00 o 0, idratazione ~55–62%, sale 40–60 g per litro d'acqua, pochissimo lievito di birra (0,1–3 g/L) o 5–20% di lievito madre. Niente olio né zucchero.",
+        "tip": "Consiglio: 8–24h di lievitazione totale a temperatura ambiente (più fino a ~4h di lavorazione), poi cottura a 430–480°C per 60–90s."
       }
     }
   },

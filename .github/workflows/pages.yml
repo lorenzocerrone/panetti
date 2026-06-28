@@ -16,37 +16,33 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - name: Validate JSON config & locales
-        run: |
-          for f in config/*.json locales/*.json; do
-            python3 -c "import json; json.load(open('$f'))" && echo "$f ok"
-          done
-      - name: Syntax-check JS
-        run: |
-          for f in i18n.js app.js content.js lib/snarkdown.js; do
-            node --check "$f" && echo "$f ok"
-          done
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Test
+        run: npm test
+      - name: Build
+        run: npm run build
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
 
   deploy:
-    needs: validate
+    needs: build
     if: github.event_name == 'push'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - name: Stamp asset version with commit SHA
-        run: |
-          sha="${GITHUB_SHA::7}"
-          sed -i "s/__BUILD__/${sha}/g" *.html i18n.js content.js
       - uses: actions/configure-pages@v6
-      - uses: actions/upload-pages-artifact@v5
-        with:
-          path: .
       - id: deployment
         uses: actions/deploy-pages@v5
