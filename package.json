@@ -1,0 +1,18 @@
+{
+  "name": "panetti",
+  "version": "1.0.0",
+  "description": "A dependency-free pizza dough calculator using baker's percentages.",
+  "keywords": [
+    "pizza",
+    "dough",
+    "bakers-percentage",
+    "calculator",
+    "neapolitan",
+    "sourdough"
+  ],
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "python3 -m http.server 8000"
+  }
+}

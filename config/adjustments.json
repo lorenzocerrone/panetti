@@ -1,0 +1,32 @@
+{
+  "sliders": [
+    { "key": "hydration", "min": 50, "max": 100, "step": 1,    "unit": "%", "color": "#5db8ff" },
+    { "key": "salt",      "min": 0,  "max": 5,   "step": 0.1,  "unit": "%", "color": "#e8e8e8" },
+    { "key": "yeast",     "min": 0,  "max": 3,   "step": 0.05, "unit": "%", "color": "#c9a36b" },
+    { "key": "oil",       "min": 0,  "max": 12,  "step": 0.5,  "unit": "%", "color": "#ffd23d" },
+    { "key": "sugar",     "min": 0,  "max": 6,   "step": 0.5,  "unit": "%", "color": "#ff9ecf" }
+  ],
+
+  "ingredientMeta": {
+    "flour":   { "color": "#e9d8c4" },
+    "water":   { "color": "#5db8ff" },
+    "salt":    { "color": "#e8e8e8" },
+    "yeast":   { "color": "#c9a36b" },
+    "starter": { "color": "#c98b5e" },
+    "oil":     { "color": "#ffd23d" },
+    "sugar":   { "color": "#ff9ecf" }
+  },
+
+  "yeastFactors":   { "fresh": 1, "active": 0.4, "instant": 0.33 },
+  "leaveningOrder": ["fresh", "active", "instant", "sourdough"],
+
+  "starter": { "defaultHyd": 100, "pctMin": 5, "pctMax": 50, "hydMin": 50, "hydMax": 125 },
+
+  "preferments": { "poolish": { "hyd": 100 }, "biga": { "hyd": 45 } },
+  "preYeastPct": 0.1,
+
+  "fermentGuide": {
+    "yeast":   { "base": 2.0, "tempHalfLife": 8, "refTemp": 20, "min": 0.02, "max": 3 },
+    "starter": { "const": 141, "tempHalfLife": 8, "refTemp": 20, "min": 5,    "max": 50 }
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "ui": {
+    "appTitle": "Panetti — Calcolatore per impasto pizza",
+    "tagline": "Il calcolatore d'impasto per veri appassionati",
+    "modeBalls": "Per panetti",
+    "modeFlour": "Per peso farina",
+    "share": "🔗 condividi",
+    "shareTitle": "Copia un link condivisibile a questo impasto",
+    "styles": "Stili",
+    "tapToLoad": "tocca per caricare",
+    "reset": "↺ ripristina",
+    "resetTitle": "Ripristina i cursori ai valori di questo stile",
+    "panettiInput": "Panetti",
+    "gramsPerBall": "Grammi / panetto",
+    "flourG": "Farina (g)",
+    "leavening": "Lievitazione",
+    "sourdoughStarter": "🫧 Pasta madre",
+    "replacesYeast": "sostituisce il lievito",
+    "starterPctLabel": "Pasta madre (% sulla farina)",
+    "starterHydLabel": "Idratazione pasta madre",
+    "fermentGuide": "🕑 Guida lievitazione",
+    "suggestsYeast": "suggerisce il % di lievito",
+    "proofTime": "Tempo di lievitazione (h)",
+    "temp": "Temp. (°C)",
+    "suggestedYeast": "Lievito fresco consigliato:",
+    "suggestedStarter": "Pasta madre consigliata:",
+    "apply": "applica →",
+    "preferment": "🧫 Preimpasto",
+    "flourInPreferment": "Farina nel preimpasto",
+    "recipeCard": "Scheda ricetta",
+    "copy": "⧉ copia",
+    "copyTitle": "Copia la ricetta negli appunti",
+    "totalDough": "impasto totale",
+    "panettiLabel": "panetti",
+    "ingredient": "Ingrediente",
+    "amount": "Quantità",
+    "bakersPct": "% del fornaio",
+    "nightBefore": "la sera prima",
+    "finalDough": "Impasto finale",
+    "mixingDay": "giorno dell'impasto",
+    "method": "Procedimento",
+    "gram": "g",
+    "kg": "kg",
+    "footer": "Basato sulle percentuali del fornaio · Farina = 100%",
+    "tagHydration": "{n}% idratazione",
+    "tagBalls": "panetti da {n}g",
+    "toAdd": "da aggiungere",
+    "copied": "Ricetta copiata 🍕",
+    "linkCopied": "Link copiato 🔗",
+    "sourdoughNote": "{name} con pasta madre: {notes} Aspettati una lievitazione più lunga e saporita.",
+    "starterHint": "Pasta madre = {flour} di farina + {water} di acqua (già conteggiati nei totali). Rinfrescala 4–8h prima di impastare.",
+    "copyLeaveningYeast": "Lievito: {label}",
+    "copyLeaveningSourdough": "Lievitazione: Pasta madre ({pct}% di pasta madre, idratazione {hyd}%)",
+    "loadError": "Impossibile caricare i file di configurazione. Servi la pagina tramite http (es. python3 -m http.server) invece di aprirla direttamente dal disco."
+  },
+
+  "ingredients": {
+    "flour": "Farina",
+    "water": "Acqua",
+    "salt": "Sale",
+    "yeast": "Lievito",
+    "starter": "Pasta madre",
+    "oil": "Olio",
+    "sugar": "Zucchero"
+  },
+
+  "leavening": {
+    "fresh": "Fresco",
+    "active": "Secco attivo",
+    "instant": "Istantaneo",
+    "sourdough": "Pasta madre"
+  },
+
+  "preferment": {
+    "none": "Nessuno",
+    "poolish": "Poolish",
+    "biga": "Biga",
+    "poolishHint": "Farina e acqua in parti uguali + un pizzico di lievito. Lascia lievitare 12–16h a temperatura ambiente finché è cupoliforme e pieno di bolle, poi uniscilo all'impasto finale.",
+    "bigaHint": "Preimpasto sodo e poco idratato + un pizzico di lievito. Lascia lievitare 12–18h (meglio se al fresco) prima dell'impasto finale.",
+    "waterWarn": "⚠️ Il preimpasto richiede più acqua di quanta ne abbia l'intera ricetta. Riduci la % di preimpasto o rendilo meno idratato."
+  },
+
+  "sliders": {
+    "hydration": "Idratazione",
+    "salt": "Sale",
+    "yeast": "Lievito (fresco)",
+    "oil": "Olio",
+    "sugar": "Zucchero"
+  },
+
+  "tips": {
+    "neapolitan": "Consiglio: 8–24h di puntata a temperatura ambiente, poi forma i panetti 4–6h prima della cottura.",
+    "ny": "Consiglio: lievitazione in frigo 24–72h per più sapore e stesura facile.",
+    "roman-teglia": "Consiglio: 3–4 pieghe di rinforzo, poi 24h di lievitazione in frigo.",
+    "sicilian": "Consiglio: lievita in teglia oliata finché raddoppia.",
+    "detroit": "Consiglio: stendi in una teglia d'acciaio imburrata, formaggio fino ai bordi.",
+    "focaccia": "Consiglio: forma le fossette con le dita unte d'olio appena prima di infornare.",
+    "sourdough": "Consiglio: rinfresca la pasta madre 4–8h prima; puntata finché cresce ~50%, poi forma i panetti e fai lievitare."
+  },
+
+  "methods": {
+    "join": " e ",
+    "extrasClause": " e {list}",
+    "finalYeastClause": " + <b>{amount}</b> di lievito",
+    "poolishWindow": "12–16h a temperatura ambiente finché è pieno di bolle e cupoliforme",
+    "bigaWindow": "12–18h (meglio se al fresco) finché è cresciuta e alveolata",
+    "straight": [
+      "Mescola <b>{flour}</b> di farina, <b>{water}</b> di acqua e <b>{yeast}</b> di lievito; lascia riposare 15–20 min.",
+      "Aggiungi <b>{salt}</b> di sale{extrasClause}; impasta fino a ottenere un impasto liscio ed elastico.",
+      "Puntata di ~{hours}h, o finché raddoppia circa.",
+      "Dividi in <b>{count}</b> panetti da <b>{ballWeight}</b> e forma delle palline strette.",
+      "Lievitazione 2–4h (o in frigo per la notte), poi stendi, condisci e cuoci alla massima temperatura del forno."
+    ],
+    "preferment": [
+      "<b>La sera prima</b> — prepara la {label}: <b>{preFlour}</b> di farina + <b>{preWater}</b> di acqua + <b>{preYeast}</b> di lievito. Lascia lievitare {preWindow}.",
+      "<b>Giorno dell'impasto</b> — unisci la {label} con <b>{finalFlour}</b> di farina, <b>{finalWater}</b> di acqua{finalYeastClause}, poi aggiungi <b>{salt}</b> di sale{extrasClause}.",
+      "Impasta fino a ottenere un impasto liscio ed elastico.",
+      "Puntata di ~{hours}h, o finché raddoppia circa.",
+      "Dividi in <b>{count}</b> panetti da <b>{ballWeight}</b> e forma delle palline strette.",
+      "Lievitazione 2–4h (o in frigo per la notte), poi stendi, condisci e cuoci alla massima temperatura del forno."
+    ],
+    "sourdough": [
+      "Rinfresca la pasta madre 4–8h prima di impastare; usane <b>{starter}</b> al picco.",
+      "Mescola <b>{flour}</b> di farina con <b>{water}</b> di acqua; lascia riposare 30–60 min (autolisi).",
+      "Aggiungi la pasta madre e <b>{salt}</b> di sale{extrasClause}; fai 3–4 serie di pieghe di rinforzo.",
+      "Puntata finché cresce ~50% ed è ariosa.",
+      "Dividi in <b>{count}</b> panetti da <b>{ballWeight}</b> e forma delle palline strette.",
+      "Lievitazione in frigo per la notte (o ~2–4h a temperatura ambiente), poi stendi, condisci e cuoci alla massima temperatura del forno."
+    ]
+  },
+
+  "recipes": {
+    "neapolitan": {
+      "name": "Napoletana",
+      "blurb": "Napoletana classica. Cornicione morbido e arioso. Forno a legna, ~90s.",
+      "notes": "Stile AVPN: farina 00, lunga lievitazione a temperatura ambiente (8–24h). Niente olio né zucchero."
+    },
+    "ny": {
+      "name": "New York",
+      "blurb": "Fette pieghevoli, crosta croccante e gommosa. Ottima nel forno di casa.",
+      "notes": "Farina forte, lievitazione in frigo 24–72h. Olio + zucchero per doratura e morbidezza."
+    },
+    "roman-teglia": {
+      "name": "Romana in teglia",
+      "blurb": "Pizza in teglia ad alta idratazione, mollica leggera e alveolata, tagliata a quadri.",
+      "notes": "Impasto molto idratato, pieghe di rinforzo. Un 'panetto' riempie una teglia grande."
+    },
+    "sicilian": {
+      "name": "Siciliana / in teglia",
+      "blurb": "Pizza in teglia spessa, tipo focaccia, con base soffice e ricca d'olio.",
+      "notes": "Lievitata in teglia oliata. Olio abbondante per una base fritta e croccante."
+    },
+    "detroit": {
+      "name": "Detroit",
+      "blurb": "Rettangolare, bordi di formaggio croccanti, interno aperto e morbido.",
+      "notes": "Cotta in teglia d'acciaio con formaggio fino ai bordi (crosta frico)."
+    },
+    "focaccia": {
+      "name": "Focaccia",
+      "blurb": "Con fossette, intrisa d'olio d'oliva, ariosa. Non proprio pizza — ma essenziale.",
+      "notes": "Lunga lievitazione in frigo, tanto olio in superficie prima di fare le fossette."
+    }
+  }
+}
