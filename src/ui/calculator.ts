@@ -256,8 +256,9 @@ function renderIngredients(c: Computed): void {
   });
 }
 
-// Step-by-step recipe card from locale method templates + computed amounts.
-function renderMethod(c: Computed): void {
+// Resolve the method templates into final step strings (may contain <b> tags).
+// `basic` flags the bare-bones straight dough (no preferment, no sourdough).
+function resolveMethod(c: Computed): { steps: string[]; basic: boolean } {
   const extras: string[] = [];
   if (c.ing.oil > 0) extras.push(t("ingredients.oil").toLowerCase());
   if (c.ing.sugar > 0) extras.push(t("ingredients.sugar").toLowerCase());
@@ -277,13 +278,14 @@ function renderMethod(c: Computed): void {
     extrasClause,
   };
 
-  let steps: string[];
+  let template: string[];
+  let basic = false;
   if (isSourdough(state)) {
-    steps = tList("methods.sourdough");
+    template = tList("methods.sourdough");
   } else {
     const split = prefermentSplit(c, state, adj);
     if (split) {
-      steps = tList("methods.preferment");
+      template = tList("methods.preferment");
       vars.label = t("preferment." + split.type).toLowerCase();
       vars.preWindow = t(split.type === "poolish" ? "methods.poolishWindow" : "methods.bigaWindow");
       vars.preFlour = fmt(split.preFlour);
@@ -295,11 +297,22 @@ function renderMethod(c: Computed): void {
         ? tp(t("methods.finalYeastClause"), { amount: fmt(split.finalYeast) })
         : "";
     } else {
-      steps = tList("methods.straight");
+      template = tList("methods.straight");
+      basic = true;
     }
   }
 
-  $("#method-steps").innerHTML = steps.map((s) => `<li>${tp(s, vars)}</li>`).join("");
+  return { steps: template.map((s) => tp(s, vars)), basic };
+}
+
+// Step-by-step recipe card from locale method templates + computed amounts.
+function renderMethod(c: Computed): void {
+  const { steps, basic } = resolveMethod(c);
+  $("#method-steps").innerHTML = steps.map((s) => `<li>${s}</li>`).join("");
+
+  const note = $("#method-note");
+  note.textContent = basic ? t("methods.basicNote") : "";
+  note.hidden = !basic;
 }
 
 function renderStarter(c: Computed): void {
@@ -454,6 +467,12 @@ function copyRecipe(): void {
       ? tp(t("ui.copyLeaveningSourdough"), { pct: state.starter.pct, hyd: state.starter.hyd })
       : tp(t("ui.copyLeaveningYeast"), { label: t("leavening." + state.leavening) }),
   );
+  lines.push("");
+  lines.push(`${t("ui.method")}:`);
+  resolveMethod(c).steps.forEach((s, i) => {
+    lines.push(`${i + 1}. ${s.replace(/<[^>]+>/g, "")}`);
+  });
+  lines.push("");
   lines.push(rt(r, "notes"));
   if (r.source) lines.push(`${tp(t("ui.source"), { label: r.source.label })} — ${r.source.url}`);
   navigator.clipboard.writeText(lines.join("\n")).then(() => showToast(t("ui.copied")));

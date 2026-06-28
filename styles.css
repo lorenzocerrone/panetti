@@ -119,7 +119,7 @@ body {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 360px;
   gap: 18px;
-  align-items: start;
+  align-items: stretch;
 }
 /* The style picker is a full-width strip spanning both columns up top. */
 .recipes { grid-column: 1 / -1; }
@@ -276,23 +276,15 @@ input[type="range"]::-moz-range-thumb {
 }
 .seg button.active { background: var(--accent-soft); color: var(--accent-2); box-shadow: inset 0 0 0 1px var(--border-strong); }
 
-/* Leavening's 4 longer labels: an even 2×2 grid, not a wrapping stadium. */
-#yeast-seg {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4px;
-  border-radius: var(--radius-sm);
-}
-#yeast-seg button { text-align: center; }
+/* Leavening: a single-row stadium of equal pills, matching the preferment seg. */
+#yeast-seg { display: flex; flex-wrap: nowrap; }
+#yeast-seg button { flex: 1; min-width: 0; text-align: center; padding: 5px 8px; font-size: 11.5px; }
 
+.notes-card { margin-top: 20px; }
 .notes {
-  margin-top: 18px;
   font-size: 12.5px;
   color: var(--text-dim);
-  background: rgba(255,255,255,0.03);
-  border-left: 3px solid var(--accent);
-  padding: 10px 13px;
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  line-height: 1.55;
 }
 
 .source {
@@ -315,7 +307,7 @@ input[type="range"]::-moz-range-thumb {
   border-radius: var(--radius-sm);
   padding: 14px;
 }
-.subcard-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.subcard-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
 .subcard-head h3 { font-family: var(--serif); font-size: 16px; font-weight: 600; }
 .guide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .guide-out {
@@ -324,6 +316,7 @@ input[type="range"]::-moz-range-thumb {
 }
 .guide-out strong { color: var(--accent-2); font-size: 16px; font-weight: 700; }
 
+#preferment-seg { flex-wrap: nowrap; }
 #preferment .seg button { padding: 5px 11px; font-size: 11.5px; }
 #pf-hint { margin-top: 10px; line-height: 1.45; }
 
@@ -437,6 +430,7 @@ input[type="range"]::-moz-range-thumb {
   background: var(--border);
 }
 .method li b { color: var(--text); font-weight: 700; }
+.method-note { margin-top: 14px; font-style: italic; line-height: 1.5; }
 
 /* "Want to know more?" — guide chips at the bottom of the recipe. */
 .learn-more { margin-top: 18px; }
