@@ -25,8 +25,11 @@ jobs:
           for f in config/*.json locales/*.json; do
             python3 -c "import json; json.load(open('$f'))" && echo "$f ok"
           done
-      - name: Syntax-check app.js
-        run: node --check app.js
+      - name: Syntax-check JS
+        run: |
+          for f in i18n.js app.js content.js lib/snarkdown.js; do
+            node --check "$f" && echo "$f ok"
+          done
 
   deploy:
     needs: validate

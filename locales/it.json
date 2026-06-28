@@ -8,6 +8,7 @@
     "shareTitle": "Copia un link condivisibile a questo impasto",
     "styles": "Stili",
     "tapToLoad": "tocca per caricare",
+    "advanced": "Avanzate",
     "reset": "↺ ripristina",
     "resetTitle": "Ripristina i cursori ai valori di questo stile",
     "panettiInput": "Panetti",
@@ -51,7 +52,25 @@
     "starterHint": "Pasta madre = {flour} di farina + {water} di acqua (già conteggiati nei totali). Rinfrescala 4–8h prima di impastare.",
     "copyLeaveningYeast": "Lievito: {label}",
     "copyLeaveningSourdough": "Lievitazione: Pasta madre ({pct}% di pasta madre, idratazione {hyd}%)",
-    "loadError": "Impossibile caricare i file di configurazione. Servi la pagina tramite http (es. python3 -m http.server) invece di aprirla direttamente dal disco."
+    "loadError": "Impossibile caricare i file di configurazione. Servi la pagina tramite http (es. python3 -m http.server) invece di aprirla direttamente dal disco.",
+    "flourGuideTitle": "Guida: scegliere la farina giusta",
+    "kneadingLink": "🤲 Come impastare →"
+  },
+
+  "nav": {
+    "calculator": "Calcolatore",
+    "about": "Informazioni",
+    "guides": "Guide"
+  },
+
+  "about": {
+    "title": "Informazioni"
+  },
+
+  "guides": {
+    "title": "Guide",
+    "flour": { "title": "Scegliere la farina giusta" },
+    "kneading": { "title": "Impastare" }
   },
 
   "ingredients": {
@@ -89,10 +108,6 @@
   },
 
   "tips": {
-    "neapolitan": "Consiglio: 8–24h di puntata a temperatura ambiente, poi forma i panetti 4–6h prima della cottura.",
-    "neapolitan-contemporanea": "Consiglio: alta idratazione + lievitazione in frigo 24–48h per un cornicione alto e a 'canotto'.",
-    "roman-teglia": "Consiglio: 3–4 pieghe di rinforzo, poi 24h di lievitazione in frigo.",
-    "focaccia": "Consiglio: forma le fossette con le dita unte d'olio appena prima di infornare.",
     "sourdough": "Consiglio: rinfresca la pasta madre 4–8h prima; puntata finché cresce ~50%, poi forma i panetti e fai lievitare."
   },
 
@@ -125,28 +140,5 @@
       "Dividi in <b>{count}</b> panetti da <b>{ballWeight}</b> e forma delle palline strette.",
       "Lievitazione in frigo per la notte (o ~2–4h a temperatura ambiente), poi stendi, condisci e cuoci alla massima temperatura del forno."
     ]
-  },
-
-  "recipes": {
-    "neapolitan": {
-      "name": "Napoletana Verace",
-      "blurb": "Napoletana classica. Cornicione morbido e arioso. Forno a legna, ~90s.",
-      "notes": "Stile AVPN: farina 00, lunga lievitazione a temperatura ambiente (8–24h). Niente olio né zucchero."
-    },
-    "neapolitan-contemporanea": {
-      "name": "Napoletana Contemporanea",
-      "blurb": "Napoletana moderna: cornicione alto e arioso a 'canotto', mollica leggera e alveolata.",
-      "notes": "Alta idratazione (~70%), farina forte, lunga lievitazione in frigo. Niente olio né zucchero."
-    },
-    "roman-teglia": {
-      "name": "Romana alla Teglia",
-      "blurb": "Pizza in teglia ad alta idratazione, mollica leggera e alveolata, tagliata a quadri.",
-      "notes": "Impasto molto idratato, pieghe di rinforzo. Un 'panetto' riempie una teglia grande."
-    },
-    "focaccia": {
-      "name": "Focaccia",
-      "blurb": "Con fossette, intrisa d'olio d'oliva, ariosa. Non proprio pizza — ma essenziale.",
-      "notes": "Lunga lievitazione in frigo, tanto olio in superficie prima di fare le fossette."
-    }
   }
 }

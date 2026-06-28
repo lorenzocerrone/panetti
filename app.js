@@ -1,16 +1,16 @@
 /* ===========================================================================
    Panetti — config-driven pizza dough calculator with i18n.
    Data lives in config/*.json; all text in locales/*.json. Loaded at runtime.
+   Shared i18n primitives (I18N, LANGS, deepMerge, tp, t, fetchJson, pickLang)
+   live in i18n.js, loaded before this script.
    =========================================================================== */
 
 /* ---------- Runtime config (populated by loadAll) ---------- */
 let RECIPES, YEAST_FACTORS, LEAVENING_ORDER, STARTER, STARTER_DEFAULT_HYD,
     PREFERMENT_HYD, PRE_YEAST_PCT, SLIDERS, INGREDIENT_META, GUIDE;
-let I18N = {}, LOCALE = "en";
 const LOCALES_CACHE = {};
 
 const PREFERMENT_ORDER = ["none", "poolish", "biga"];
-const LANGS = { en: "EN", it: "IT" };
 
 /* ---------- State ---------- */
 const state = {
@@ -26,34 +26,17 @@ const state = {
 const isSourdough = () => state.leavening === "sourdough";
 const yeastFactor = () => (isSourdough() ? 0 : YEAST_FACTORS[state.leavening]);
 
-/* ---------- i18n helpers ---------- */
-function deepMerge(base, over) {
-  if (over === undefined) return base;
-  if (Array.isArray(base) || Array.isArray(over)) return over;
-  if (typeof base !== "object" || base === null) return over;
-  const out = { ...base };
-  for (const k in over) out[k] = k in base ? deepMerge(base[k], over[k]) : over[k];
-  return out;
-}
-
-function tp(str, params) {
-  return String(str).replace(/\{(\w+)\}/g, (m, k) =>
-    params && k in params ? params[k] : m
-  );
-}
-
-// Translate a dot-path key. Returns the raw value (string or array); strings
-// get {placeholder} interpolation when params are given. Missing → the key.
-function t(key, params) {
-  const val = key.split(".").reduce((o, k) => (o == null ? undefined : o[k]), I18N);
-  if (val === undefined) return key;
-  if (typeof val === "string" && params) return tp(val, params);
-  return val;
-}
-
 /* ---------- Helpers ---------- */
 const $ = (sel) => document.querySelector(sel);
 const currentRecipe = () => RECIPES.find((r) => r.id === state.recipeId);
+
+// Recipe text (name/blurb/notes/tip) lives inline in config/recipes.json under
+// i18n.<lang>, with English fallback — mirroring the locale deepMerge fallback.
+const rt = (recipe, field) =>
+  recipe.i18n?.[state.lang]?.[field] ?? recipe.i18n?.en?.[field] ?? "";
+
+// Ingredient rows that deep-link to a guide page.
+const INGREDIENT_LINKS = { flour: "guides.html#flour" };
 const locTag = () => (LOCALE === "it" ? "it-IT" : "en-US");
 const nf = (n, max) => new Intl.NumberFormat(locTag(), { maximumFractionDigits: max }).format(n);
 const nfFixed = (n, d) => new Intl.NumberFormat(locTag(), { minimumFractionDigits: d, maximumFractionDigits: d }).format(n);
@@ -139,9 +122,9 @@ function renderRecipes() {
     btn.innerHTML = `
       <div class="rc-top">
         <span class="rc-emoji">${r.emoji}</span>
-        <span class="rc-name">${t("recipes." + r.id + ".name")}</span>
+        <span class="rc-name">${rt(r, "name")}</span>
       </div>
-      <div class="rc-blurb">${t("recipes." + r.id + ".blurb")}</div>
+      <div class="rc-blurb">${rt(r, "blurb")}</div>
       <div class="rc-tags">
         <span class="tag">${tp(t("ui.tagHydration"), { n: r.hydration })}</span>
         <span class="tag">${tp(t("ui.tagBalls"), { n: r.ballWeight })}</span>
@@ -215,11 +198,11 @@ function syncStarterInputs() {
 function render() {
   const r = currentRecipe();
   const c = compute();
-  const name = t("recipes." + r.id + ".name");
-  const notes = t("recipes." + r.id + ".notes");
+  const name = rt(r, "name");
+  const notes = rt(r, "notes");
 
   $("#active-name").textContent = `${r.emoji} ${name}`;
-  $("#active-blurb").textContent = t("recipes." + r.id + ".blurb");
+  $("#active-blurb").textContent = rt(r, "blurb");
   $("#recipe-notes").textContent = isSourdough()
     ? tp(t("ui.sourdoughNote"), { name, notes })
     : notes;
@@ -259,9 +242,13 @@ function render() {
     const meta = INGREDIENT_META[row.key];
     const tag = row.tag ? ` <small style="color:var(--text-faint)">${row.tag}</small>` : "";
     const decimals = row.key === "yeast" ? 2 : row.pct % 1 === 0 ? 0 : 1;
+    const label = t("ingredients." + row.key);
+    const name = INGREDIENT_LINKS[row.key]
+      ? `<a class="ing-link" href="${INGREDIENT_LINKS[row.key]}" title="${t("ui.flourGuideTitle")}">${label}</a>`
+      : label;
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td><span class="ing-dot" style="background:${meta.color}"></span>${t("ingredients." + row.key)}${tag}</td>
+      <td><span class="ing-dot" style="background:${meta.color}"></span>${name}${tag}</td>
       <td>${fmt(row.grams)}</td>
       <td>${nfFixed(row.pct, decimals)}%</td>`;
     tbody.appendChild(tr);
@@ -334,7 +321,7 @@ function renderStarter(c) {
 function renderFermentTip() {
   $("#ferment-tip").textContent = isSourdough()
     ? t("tips.sourdough")
-    : t("tips." + state.recipeId);
+    : rt(currentRecipe(), "tip");
 }
 
 /* ---------- Preferment ---------- */
@@ -546,7 +533,7 @@ function setMode(mode) {
 function copyRecipe() {
   const r = currentRecipe();
   const c = compute();
-  const name = t("recipes." + r.id + ".name");
+  const name = rt(r, "name");
   const lines = [
     `${r.emoji} ${name} — ${fmt(c.totalDough)} ${t("ui.totalDough")}`,
     `${fmtCount(c.panetti)} ${t("ui.panettiLabel")} × ${fmt(c.ballWeight)}`,
@@ -565,7 +552,7 @@ function copyRecipe() {
       ? tp(t("ui.copyLeaveningSourdough"), { pct: state.starter.pct, hyd: state.starter.hyd })
       : tp(t("ui.copyLeaveningYeast"), { label: t("leavening." + state.leavening) })
   );
-  lines.push(t("recipes." + r.id + ".notes"));
+  lines.push(rt(r, "notes"));
   navigator.clipboard.writeText(lines.join("\n")).then(() => showToast(t("ui.copied")));
 }
 
@@ -632,22 +619,6 @@ async function setLang(lang) {
 }
 
 /* ---------- Loading ---------- */
-async function fetchJson(path) {
-  const res = await fetch(path);
-  if (!res.ok) throw new Error("Failed to load " + path);
-  return res.json();
-}
-
-function pickLang() {
-  const q = new URLSearchParams(location.hash.slice(1));
-  if (q.has("lang") && LANGS[q.get("lang")]) return q.get("lang");
-  try {
-    const stored = localStorage.getItem("panetti.lang");
-    if (stored && LANGS[stored]) return stored;
-  } catch (e) {}
-  return (navigator.language || "en").toLowerCase().startsWith("it") ? "it" : "en";
-}
-
 function buildRuntime(recipes, adj) {
   RECIPES = recipes;
   YEAST_FACTORS = adj.yeastFactors;

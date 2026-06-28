@@ -8,6 +8,7 @@
     "shareTitle": "Copy a shareable link to this exact dough",
     "styles": "Styles",
     "tapToLoad": "tap to load",
+    "advanced": "Advanced",
     "reset": "↺ reset",
     "resetTitle": "Reset sliders to this style's defaults",
     "panettiInput": "Panetti",
@@ -51,7 +52,25 @@
     "starterHint": "Starter = {flour} flour + {water} water (already counted in the totals). Feed it 4–8h before mixing.",
     "copyLeaveningYeast": "Yeast: {label}",
     "copyLeaveningSourdough": "Leavening: Sourdough ({pct}% starter @ {hyd}% hyd)",
-    "loadError": "Couldn't load the config files. Serve this page over http (e.g. python3 -m http.server) instead of opening it directly from disk."
+    "loadError": "Couldn't load the config files. Serve this page over http (e.g. python3 -m http.server) instead of opening it directly from disk.",
+    "flourGuideTitle": "Guide: choosing the right flour",
+    "kneadingLink": "🤲 How to knead the dough →"
+  },
+
+  "nav": {
+    "calculator": "Calculator",
+    "about": "About",
+    "guides": "Guides"
+  },
+
+  "about": {
+    "title": "About"
+  },
+
+  "guides": {
+    "title": "Guides",
+    "flour": { "title": "Choosing the right flour" },
+    "kneading": { "title": "Kneading the dough" }
   },
 
   "ingredients": {
@@ -89,10 +108,6 @@
   },
 
   "tips": {
-    "neapolitan": "Tip: 8–24h room-temp bulk, then ball 4–6h before bake.",
-    "neapolitan-contemporanea": "Tip: high hydration + cold ferment 24–48h for a tall, blistered canotto rim.",
-    "roman-teglia": "Tip: 3–4 stretch & folds, then 24h cold proof.",
-    "focaccia": "Tip: dimple with oily fingers right before baking.",
     "sourdough": "Tip: feed starter 4–8h before mixing; bulk until ~50% risen, then ball & proof."
   },
 
@@ -125,28 +140,5 @@
       "Divide into <b>{count}</b> panetti × <b>{ballWeight}</b> and shape into tight balls.",
       "Cold-proof overnight (or ~2–4h at room temp), then stretch, top, and bake as hot as your oven allows."
     ]
-  },
-
-  "recipes": {
-    "neapolitan": {
-      "name": "Neapolitan Verace",
-      "blurb": "Classic Napoletana. Soft, airy cornicione. Wood-fired, ~90s bake.",
-      "notes": "AVPN style: 00 flour, long room-temp proof (8–24h). No oil, no sugar."
-    },
-    "neapolitan-contemporanea": {
-      "name": "Neapolitan Contemporanea",
-      "blurb": "Modern Neapolitan: tall, airy 'canotto' rim with a light, open crumb.",
-      "notes": "High hydration (~70%), strong flour, long cold ferment. No oil or sugar."
-    },
-    "roman-teglia": {
-      "name": "Romana alla Teglia",
-      "blurb": "High-hydration pan pizza, light & blistered crumb, cut into squares.",
-      "notes": "Very wet dough, stretch-and-folds. One 'panetto' fills a large tray."
-    },
-    "focaccia": {
-      "name": "Focaccia",
-      "blurb": "Dimpled, olive-oil drenched, airy. Not strictly pizza — but essential.",
-      "notes": "Long cold proof, lots of oil on top before dimpling."
-    }
   }
 }
