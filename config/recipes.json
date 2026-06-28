@@ -1,8 +1,6 @@
 [
-  { "id": "neapolitan",   "emoji": "🇮🇹", "hydration": 60, "salt": 2.8, "yeast": 0.2, "oil": 0, "sugar": 0,   "starter": 15, "ballWeight": 250 },
-  { "id": "ny",           "emoji": "🗽", "hydration": 62, "salt": 2,   "yeast": 0.4, "oil": 3, "sugar": 1.5, "starter": 15, "ballWeight": 280 },
-  { "id": "roman-teglia", "emoji": "🔲", "hydration": 80, "salt": 2.2, "yeast": 0.3, "oil": 3, "sugar": 0,   "starter": 20, "ballWeight": 1000 },
-  { "id": "sicilian",     "emoji": "🟧", "hydration": 70, "salt": 2,   "yeast": 0.5, "oil": 5, "sugar": 1,   "starter": 20, "ballWeight": 500 },
-  { "id": "detroit",      "emoji": "🟦", "hydration": 70, "salt": 2,   "yeast": 1,   "oil": 2, "sugar": 0,   "starter": 20, "ballWeight": 450 },
-  { "id": "focaccia",     "emoji": "🫓", "hydration": 80, "salt": 2.5, "yeast": 0.4, "oil": 6, "sugar": 0,   "starter": 20, "ballWeight": 800 }
+  { "id": "neapolitan",               "emoji": "🇮🇹", "hydration": 60, "salt": 2.8, "yeast": 0.2,  "oil": 0, "sugar": 0, "starter": 15, "ballWeight": 250 },
+  { "id": "neapolitan-contemporanea", "emoji": "🎈", "hydration": 70, "salt": 2.8, "yeast": 0.15, "oil": 0, "sugar": 0, "starter": 15, "ballWeight": 280 },
+  { "id": "roman-teglia",             "emoji": "🔲", "hydration": 80, "salt": 2.2, "yeast": 0.3,  "oil": 3, "sugar": 0, "starter": 20, "ballWeight": 1000 },
+  { "id": "focaccia",                 "emoji": "🫓", "hydration": 80, "salt": 2.5, "yeast": 0.4,  "oil": 6, "sugar": 0, "starter": 20, "ballWeight": 800 }
 ]

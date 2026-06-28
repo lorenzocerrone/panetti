@@ -90,10 +90,8 @@
 
   "tips": {
     "neapolitan": "Consiglio: 8–24h di puntata a temperatura ambiente, poi forma i panetti 4–6h prima della cottura.",
-    "ny": "Consiglio: lievitazione in frigo 24–72h per più sapore e stesura facile.",
+    "neapolitan-contemporanea": "Consiglio: alta idratazione + lievitazione in frigo 24–48h per un cornicione alto e a 'canotto'.",
     "roman-teglia": "Consiglio: 3–4 pieghe di rinforzo, poi 24h di lievitazione in frigo.",
-    "sicilian": "Consiglio: lievita in teglia oliata finché raddoppia.",
-    "detroit": "Consiglio: stendi in una teglia d'acciaio imburrata, formaggio fino ai bordi.",
     "focaccia": "Consiglio: forma le fossette con le dita unte d'olio appena prima di infornare.",
     "sourdough": "Consiglio: rinfresca la pasta madre 4–8h prima; puntata finché cresce ~50%, poi forma i panetti e fai lievitare."
   },
@@ -131,29 +129,19 @@
 
   "recipes": {
     "neapolitan": {
-      "name": "Napoletana",
+      "name": "Napoletana Verace",
       "blurb": "Napoletana classica. Cornicione morbido e arioso. Forno a legna, ~90s.",
       "notes": "Stile AVPN: farina 00, lunga lievitazione a temperatura ambiente (8–24h). Niente olio né zucchero."
     },
-    "ny": {
-      "name": "New York",
-      "blurb": "Fette pieghevoli, crosta croccante e gommosa. Ottima nel forno di casa.",
-      "notes": "Farina forte, lievitazione in frigo 24–72h. Olio + zucchero per doratura e morbidezza."
+    "neapolitan-contemporanea": {
+      "name": "Napoletana Contemporanea",
+      "blurb": "Napoletana moderna: cornicione alto e arioso a 'canotto', mollica leggera e alveolata.",
+      "notes": "Alta idratazione (~70%), farina forte, lunga lievitazione in frigo. Niente olio né zucchero."
     },
     "roman-teglia": {
-      "name": "Romana in teglia",
+      "name": "Romana alla Teglia",
       "blurb": "Pizza in teglia ad alta idratazione, mollica leggera e alveolata, tagliata a quadri.",
       "notes": "Impasto molto idratato, pieghe di rinforzo. Un 'panetto' riempie una teglia grande."
-    },
-    "sicilian": {
-      "name": "Siciliana / in teglia",
-      "blurb": "Pizza in teglia spessa, tipo focaccia, con base soffice e ricca d'olio.",
-      "notes": "Lievitata in teglia oliata. Olio abbondante per una base fritta e croccante."
-    },
-    "detroit": {
-      "name": "Detroit",
-      "blurb": "Rettangolare, bordi di formaggio croccanti, interno aperto e morbido.",
-      "notes": "Cotta in teglia d'acciaio con formaggio fino ai bordi (crosta frico)."
     },
     "focaccia": {
       "name": "Focaccia",

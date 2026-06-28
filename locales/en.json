@@ -90,10 +90,8 @@
 
   "tips": {
     "neapolitan": "Tip: 8–24h room-temp bulk, then ball 4–6h before bake.",
-    "ny": "Tip: cold ferment 24–72h for flavor & easy stretch.",
+    "neapolitan-contemporanea": "Tip: high hydration + cold ferment 24–48h for a tall, blistered canotto rim.",
     "roman-teglia": "Tip: 3–4 stretch & folds, then 24h cold proof.",
-    "sicilian": "Tip: proof in an oiled pan until doubled.",
-    "detroit": "Tip: press into a buttered steel pan, cheese to the edges.",
     "focaccia": "Tip: dimple with oily fingers right before baking.",
     "sourdough": "Tip: feed starter 4–8h before mixing; bulk until ~50% risen, then ball & proof."
   },
@@ -131,29 +129,19 @@
 
   "recipes": {
     "neapolitan": {
-      "name": "Neapolitan",
+      "name": "Neapolitan Verace",
       "blurb": "Classic Napoletana. Soft, airy cornicione. Wood-fired, ~90s bake.",
       "notes": "AVPN style: 00 flour, long room-temp proof (8–24h). No oil, no sugar."
     },
-    "ny": {
-      "name": "New York",
-      "blurb": "Foldable slices, crisp-chewy crust. Bakes well in a home oven.",
-      "notes": "Bread flour, cold ferment 24–72h. Oil + sugar for browning & chew."
+    "neapolitan-contemporanea": {
+      "name": "Neapolitan Contemporanea",
+      "blurb": "Modern Neapolitan: tall, airy 'canotto' rim with a light, open crumb.",
+      "notes": "High hydration (~70%), strong flour, long cold ferment. No oil or sugar."
     },
     "roman-teglia": {
-      "name": "Roman al Taglio",
+      "name": "Romana alla Teglia",
       "blurb": "High-hydration pan pizza, light & blistered crumb, cut into squares.",
       "notes": "Very wet dough, stretch-and-folds. One 'panetto' fills a large tray."
-    },
-    "sicilian": {
-      "name": "Sicilian / Pan",
-      "blurb": "Thick, focaccia-like pan pizza with a fluffy, oil-rich base.",
-      "notes": "Proofed in an oiled pan. Generous oil for a fried-bottom crust."
-    },
-    "detroit": {
-      "name": "Detroit",
-      "blurb": "Rectangular, crispy cheese edges, open and tender interior.",
-      "notes": "Baked in a steel pan with cheese to the edges (frico crust)."
     },
     "focaccia": {
       "name": "Focaccia",
