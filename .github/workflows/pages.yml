@@ -3,6 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -15,7 +16,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate JSON config & locales
+        run: |
+          for f in config/*.json locales/*.json; do
+            python3 -c "import json; json.load(open('$f'))" && echo "$f ok"
+          done
+      - name: Syntax-check app.js
+        run: node --check app.js
+
   deploy:
+    needs: validate
+    if: github.event_name == 'push'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

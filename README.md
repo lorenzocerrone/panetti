@@ -70,12 +70,18 @@ python3 -m http.server 8000   # then visit http://localhost:8000
 
 ## Deploy to GitHub Pages
 
-1. Push these files to a repo (the site lives at the repo root).
-2. **Settings → Pages → Build and deployment → Source: Deploy from a branch**, pick `main` / `/ (root)`.
-3. Done — `https://<user>.github.io/<repo>/`.
+A GitHub Actions workflow at `.github/workflows/pages.yml` validates the site
+(JSON config/locales parse, `app.js` syntax) on every push and pull request,
+then deploys to Pages when validation passes on `main`.
 
-(An optional GitHub Actions workflow is included at `.github/workflows/pages.yml`
-if you prefer Actions-based deploys.)
+1. Push these files to a repo (the site lives at the repo root).
+2. **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+3. Push to `main` (or run the workflow manually) — the `validate` job runs,
+   then `deploy` publishes to `https://<user>.github.io/<repo>/`.
+
+> Prefer no Actions? Pick **Source: Deploy from a branch** → `main` / `/ (root)`
+> instead; the workflow's deploy step is then skipped, but CI validation still
+> runs on pushes and PRs.
 
 ## Customising recipes
 
