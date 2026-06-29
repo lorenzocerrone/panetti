@@ -134,29 +134,37 @@ body {
   color: var(--pan-faint);
 }
 
-.mode-toggle {
+/* ---------- Segmented control (one recipe, reused everywhere) ----------
+   Used for mode-toggle, language, leavening & preferment. Square hairline
+   wrapper; the active segment is a solid sienna fill — the single
+   "selected" language across the whole UI. */
+.mode-toggle, .seg {
   display: inline-flex;
-  background: var(--panel-solid);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 4px;
-}
-.mode-toggle button {
-  border: 0;
+  border: 1px solid rgba(62, 51, 36, 0.32);
+  border-radius: var(--pan-radius);
+  overflow: hidden;
   background: transparent;
-  color: var(--text-dim);
-  font: inherit;
-  font-weight: 600;
-  font-size: 13px;
-  padding: 9px 18px;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  font-family: var(--mono);
 }
-.mode-toggle button.active {
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #1a0f08;
-  box-shadow: 0 6px 18px -6px rgba(255, 122, 61, 0.6);
+.mode-toggle button, .seg button {
+  border: 0;
+  border-left: 1px solid rgba(62, 51, 36, 0.25);
+  background: transparent;
+  color: var(--pan-muted);
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 9px 14px;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.mode-toggle button:first-child, .seg button:first-child { border-left: 0; }
+.mode-toggle button:hover, .seg button:hover { color: var(--pan-ink); }
+.mode-toggle button.active, .seg button.active {
+  background: var(--pan-sienna);
+  color: var(--pan-panel);
 }
 /* In the recipe card the toggle sits above the base inputs. */
 .recipe-main .mode-toggle { margin-bottom: 14px; }
@@ -236,12 +244,14 @@ body {
 .recipe-card .rc-blurb { color: var(--text-dim); font-size: 12px; line-height: 1.4; }
 .recipe-card .rc-tags { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
 .tag {
-  font-size: 10.5px;
-  font-weight: 600;
-  color: var(--accent-2);
-  background: rgba(255, 178, 77, 0.1);
-  padding: 2px 7px;
-  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--pan-muted);
+  background: var(--pan-muted-tint);
+  padding: 4px 8px;
+  border-radius: var(--pan-radius);
 }
 
 /* ---------- Controls ---------- */
@@ -314,17 +324,9 @@ input[type="range"]::-moz-range-thumb {
   text-transform: uppercase; letter-spacing: 0.4px;
   display: block; margin-bottom: 8px;
 }
-.seg { display: inline-flex; flex-wrap: wrap; gap: 2px; background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: 3px; }
-.seg button {
-  border: 0; background: transparent; color: var(--text-dim);
-  font: inherit; font-size: 12.5px; font-weight: 600;
-  padding: 7px 14px; border-radius: 999px; cursor: pointer; transition: all 0.18s;
-}
-.seg button.active { background: var(--accent-soft); color: var(--accent-2); box-shadow: inset 0 0 0 1px var(--border-strong); }
-
-/* Leavening: a single-row stadium of equal pills, matching the preferment seg. */
-#yeast-seg { display: flex; flex-wrap: nowrap; }
-#yeast-seg button { flex: 1; min-width: 0; text-align: center; padding: 5px 8px; font-size: 11.5px; }
+/* Leavening: a full-width 4-up segmented control (tighter segments). */
+#yeast-seg { display: flex; width: 100%; }
+#yeast-seg button { flex: 1; min-width: 0; text-align: center; padding: 9px 4px; }
 
 .notes-card { margin-top: 20px; }
 .notes {
@@ -361,8 +363,7 @@ input[type="range"]::-moz-range-thumb {
 }
 .guide-out strong { color: var(--accent-2); font-size: 16px; font-weight: 700; }
 
-#preferment-seg { flex-wrap: nowrap; }
-#preferment .seg button { padding: 5px 11px; font-size: 11.5px; }
+#preferment .seg button { padding: 9px 12px; }
 #pf-hint { margin-top: 10px; line-height: 1.45; }
 
 /* ---------- Preferment breakdown (results) ---------- */
@@ -376,13 +377,35 @@ input[type="range"]::-moz-range-thumb {
 .ingredients.mini td { padding: 7px 0; font-size: 13px; }
 
 .ghost-btn {
-  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(62, 51, 36, 0.4);
   background: transparent;
-  color: var(--text-dim);
-  font: inherit; font-size: 12.5px; font-weight: 600;
-  padding: 6px 12px; border-radius: 999px; cursor: pointer; transition: all 0.15s;
+  color: var(--pan-muted);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  border-radius: var(--pan-radius);
+  cursor: pointer;
+  transition: all 0.12s ease;
 }
-.ghost-btn:hover { border-color: var(--border-strong); color: var(--text); }
+.ghost-btn:hover { border-color: rgba(62, 51, 36, 0.7); color: var(--pan-ink); }
+
+/* Primary button (ferment-guide Apply): sienna outline → solid sienna on hover. */
+#apply-yeast {
+  border-color: var(--pan-sienna);
+  background: rgba(168, 94, 48, 0.1);
+  color: var(--pan-sienna);
+}
+#apply-yeast:hover {
+  background: var(--pan-sienna);
+  border-color: var(--pan-sienna);
+  color: var(--pan-panel);
+}
 
 /* ---------- Results ---------- */
 .headline {
@@ -486,13 +509,14 @@ input[type="range"]::-moz-range-thumb {
 .learn-more-links { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 7px 13px; border-radius: 999px;
-  background: var(--accent-soft); color: var(--accent-2);
-  border: 1px solid var(--border); text-decoration: none;
-  font-size: 12.5px; font-weight: 600; transition: all 0.18s;
+  padding: 7px 11px; border-radius: var(--pan-radius);
+  background: var(--pan-sienna-tint); color: var(--pan-sienna);
+  border: 1px solid var(--pan-rule-card); text-decoration: none;
+  font-family: var(--mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 0.03em; transition: all 0.12s ease;
 }
-.chip:hover { border-color: var(--border-strong); background: rgba(255, 122, 61, 0.2); }
-.chip-icon { width: 15px; height: 15px; }
+.chip:hover { border-color: var(--pan-sienna); }
+.chip-icon { width: 14px; height: 14px; }
 
 /* ---------- Footer ---------- */
 .foot {
