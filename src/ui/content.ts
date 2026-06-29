@@ -9,6 +9,7 @@ import { PAGES } from "../data/config";
 import type { PageRef } from "../data/config";
 import { applyI18nAttrs, buildLangSeg, pickLang, setLocale, t } from "../i18n/i18n";
 import { $ } from "./dom";
+import { icon, hydrateIcons } from "./icons";
 
 type PageKind = "about" | "guides";
 
@@ -35,7 +36,7 @@ async function renderContent(slug: string): Promise<void> {
 
 /* ---------- Guides ---------- */
 const guideLabel = (g: PageRef): string =>
-  `<span class="guide-emoji">${g.emoji || ""}</span>${t("guides." + g.id + ".title")}`;
+  `${icon(g.icon, "guide-icon")}${t("guides." + g.id + ".title")}`;
 
 function renderGuideList(): void {
   const list = $("#guide-list");
@@ -106,6 +107,7 @@ export function initContent(): void {
   const page = (document.body.dataset.page ?? "about") as PageKind;
   setLocale(lang);
   applyShell(page);
+  hydrateIcons(); // fill the brand-mark [data-icon] placeholder
 
   if (page === "guides") {
     renderGuideList();

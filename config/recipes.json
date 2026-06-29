@@ -1,7 +1,7 @@
 [
   {
     "id": "neapolitan",
-    "emoji": "🇮🇹",
+    "icon": "verace",
     "hydration": 59, "salt": 2.9, "yeast": 0.15, "oil": 0, "sugar": 0,
     "starter": 15, "ballWeight": 250,
     "source": {
@@ -25,7 +25,7 @@
   },
   {
     "id": "neapolitan-contemporanea",
-    "emoji": "🎈",
+    "icon": "canotto",
     "hydration": 70, "salt": 2.8, "yeast": 0.15, "oil": 0, "sugar": 0,
     "starter": 15, "ballWeight": 280,
     "i18n": {
@@ -45,7 +45,7 @@
   },
   {
     "id": "roman-teglia",
-    "emoji": "🔲",
+    "icon": "teglia",
     "hydration": 80, "salt": 2.2, "yeast": 0.3, "oil": 3, "sugar": 0,
     "starter": 20, "ballWeight": 1000,
     "i18n": {
@@ -65,7 +65,7 @@
   },
   {
     "id": "focaccia",
-    "emoji": "🫓",
+    "icon": "focaccia",
     "hydration": 80, "salt": 2.5, "yeast": 0.4, "oil": 6, "sugar": 0,
     "starter": 20, "ballWeight": 800,
     "i18n": {

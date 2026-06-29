@@ -17,6 +17,6 @@ export const ADJUSTMENTS = adjustmentsData as Adjustments;
 
 export interface PageRef {
   id: string;
-  emoji: string;
+  icon: string;
 }
 export const PAGES: PageRef[] = pagesData;

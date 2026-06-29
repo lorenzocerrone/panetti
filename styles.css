@@ -70,8 +70,13 @@ body {
 }
 
 .brand { display: flex; align-items: center; gap: 14px; }
+
+/* Inline line-icons: inherit the surrounding text size & colour (currentColor). */
+.icon { width: 1.1em; height: 1.1em; vertical-align: -0.18em; flex: none; }
+
 .brand-mark {
   font-size: 38px;
+  color: var(--accent);
   filter: drop-shadow(0 6px 14px rgba(255, 122, 61, 0.4));
   animation: float 5s ease-in-out infinite;
 }
@@ -185,7 +190,7 @@ body {
   box-shadow: inset 0 0 0 1px var(--accent);
 }
 .recipe-card .rc-top { display: flex; align-items: center; gap: 9px; margin-bottom: 4px; }
-.recipe-card .rc-emoji { font-size: 20px; }
+.recipe-card .rc-icon { width: 20px; height: 20px; color: var(--accent-2); }
 .recipe-card .rc-name { font-weight: 700; font-size: 15px; }
 .recipe-card .rc-blurb { color: var(--text-dim); font-size: 12px; line-height: 1.4; }
 .recipe-card .rc-tags { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
@@ -447,6 +452,7 @@ input[type="range"]::-moz-range-thumb {
   font-size: 12.5px; font-weight: 600; transition: all 0.18s;
 }
 .chip:hover { border-color: var(--border-strong); background: rgba(255, 122, 61, 0.2); }
+.chip-icon { width: 15px; height: 15px; }
 
 /* ---------- Footer ---------- */
 .foot {
@@ -557,6 +563,9 @@ a.brand { text-decoration: none; color: inherit; }
 }
 
 .guide-list { display: flex; flex-direction: column; gap: 4px; }
+#active-name { display: flex; align-items: center; gap: 9px; }
+#active-name .icon { color: var(--accent); }
+
 .guide-link {
   display: flex; align-items: center; gap: 9px;
   text-decoration: none;
@@ -572,7 +581,7 @@ a.brand { text-decoration: none; color: inherit; }
   background: var(--accent-soft);
   border-color: var(--accent);
 }
-.guide-emoji { font-size: 18px; line-height: 1; }
+.guide-icon { width: 18px; height: 18px; }
 
 /* ---------- Rendered Markdown (.prose) ---------- */
 .prose { line-height: 1.65; color: var(--text-dim); }

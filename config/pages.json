@@ -1,4 +1,4 @@
 [
-  { "id": "flour", "emoji": "🌾" },
-  { "id": "kneading", "emoji": "🤲" }
+  { "id": "flour", "icon": "wheat" },
+  { "id": "kneading", "icon": "kneading" }
 ]

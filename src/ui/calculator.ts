@@ -33,6 +33,7 @@ import {
 } from "../state/store";
 import type { AppState } from "../state/types";
 import { $, setFill, showToast } from "./dom";
+import { icon, hydrateIcons } from "./icons";
 
 const adj = ADJUSTMENTS;
 let state: AppState;
@@ -101,7 +102,7 @@ function renderRecipes(): void {
     btn.className = "recipe-card" + (r.id === state.recipeId ? " active" : "");
     btn.innerHTML = `
       <div class="rc-top">
-        <span class="rc-emoji">${r.emoji}</span>
+        ${icon(r.icon, "rc-icon")}
         <span class="rc-name">${rt(r, "name")}</span>
       </div>
       <div class="rc-blurb">${rt(r, "blurb")}</div>
@@ -164,7 +165,7 @@ function render(): void {
   const name = rt(r, "name");
   const notes = rt(r, "notes");
 
-  $("#active-name").textContent = `${r.emoji} ${name}`;
+  $("#active-name").innerHTML = `${icon(r.icon)} <span>${name}</span>`;
   $("#active-blurb").textContent = rt(r, "blurb");
   $("#recipe-notes").textContent = isSourdough(state)
     ? tp(t("ui.sourdoughNote"), { name, notes })
@@ -336,7 +337,7 @@ function renderFermentTip(): void {
 function renderLearnMore(): void {
   $("#learn-more-links").innerHTML = PAGES.map(
     (g) =>
-      `<a class="chip" href="guides.html#${g.id}"><span class="chip-emoji">${g.emoji}</span>${t("guides." + g.id + ".title")}</a>`,
+      `<a class="chip" href="guides.html#${g.id}">${icon(g.icon, "chip-icon")}${t("guides." + g.id + ".title")}</a>`,
   ).join("");
 }
 
@@ -450,7 +451,7 @@ function copyRecipe(): void {
   const c = compute(state, adj);
   const name = rt(r, "name");
   const lines = [
-    `${r.emoji} ${name} — ${fmt(c.totalDough)} ${t("ui.totalDough")}`,
+    `${name} — ${fmt(c.totalDough)} ${t("ui.totalDough")}`,
     `${fmtCount(c.panetti)} ${t("ui.panettiLabel")} × ${fmt(c.ballWeight)}`,
     "",
   ];
@@ -583,6 +584,7 @@ export function initCalculator(): void {
   stHyd.max = String(adj.starter.hydMax);
 
   applyStaticI18n();
+  hydrateIcons(); // fill brand mark + static heading/button [data-icon] placeholders
   buildLangSeg($("#lang-seg"), state.lang, setLang);
 
   deserializeInto(state, incomingHash, RECIPES, adj); // restore from a shared link, if any

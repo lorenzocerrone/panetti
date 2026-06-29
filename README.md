@@ -1,4 +1,4 @@
-# 🍕 Panetti — Pizza Dough Calculator
+# Panetti — Pizza Dough Calculator
 
 A slick, dependency-free static page for scaling pizza dough recipes using
 **baker's percentages**. Pick a style, dial in hydration/salt/yeast/oil, and it
@@ -17,7 +17,7 @@ computes exact gram weights for any number of *panetti* (dough balls).
 - **Ferment guide** — enter proof time + temperature, get a suggested fresh-yeast % (calibrated so 8 h @ 20 °C ≈ 0.25 %), or a suggested **starter %** in sourdough mode (≈ 20 % @ 24 °C → ~5 h bulk); one click applies it to the recipe.
 - **Poolish / Biga preferment** — split a chosen % of the flour into a preferment (the night before) and get a separate ingredient table for the preferment and the final dough. The preferment carries a small, realistic yeast dose while the remainder is added on mixing day — totals are always conserved (the preferment only *redistributes* the recipe).
 - **Method card** — a step-by-step timeline with the actual gram amounts that adapts to the leavening and preferment: straight dough, night-before poolish/biga, or sourdough stretch-and-folds.
-- **Save / share via URL** — every change is encoded into the URL hash; the 🔗 share button copies a link that reopens the exact dough.
+- **Save / share via URL** — every change is encoded into the URL hash; the share button copies a link that reopens the exact dough.
 - **Copy to clipboard** — grab a clean text recipe card.
 - **Localization (English / Italian)** — auto-detects the browser language on first load (Italian → `it`, anything else → English), with a manual EN/IT switch in the top bar that's remembered (URL hash + `localStorage`). Numbers are locale-formatted (Italian uses a decimal comma).
 
@@ -28,7 +28,7 @@ All data and text live in editable JSON files loaded at runtime — **no build s
 ```
 config/
   recipes.json      # the pre-built styles: each entry has its numbers (hydration, salt,
-                    #   yeast, oil, sugar, starter %, ball weight, emoji) AND its text per
+                    #   yeast, oil, sugar, starter %, ball weight, icon) AND its text per
                     #   language under i18n.<lang> = { name, blurb, notes, tip }.
   adjustments.json  # the tunables: slider ranges/steps/colors, leavening conversion
                     #   factors, preferment hydration %, the small preferment yeast dose,
@@ -64,14 +64,14 @@ public/content/
   about.<lang>.md        # the About page
   guide-<id>.<lang>.md   # one guide article per id
 config/
-  pages.json             # the guides list: [{ "id": "flour", "emoji": "🌾" }, …]
+  pages.json             # the guides list: [{ "id": "flour", "icon": "wheat" }, …]
 ```
 
 Missing a translation? The loader falls back to the English file automatically
 (`<slug>.en.md`), exactly like the locale JSON fallback.
 
 **To add a guide:** drop `content/guide-<id>.en.md` (and any `content/guide-<id>.<lang>.md`
-translations), add one line `{ "id": "<id>", "emoji": "…" }` to `config/pages.json`, and a
+translations), add one line `{ "id": "<id>", "icon": "<icon>" }` to `config/pages.json`, and a
 title under `guides.<id>.title` in each `locales/*.json`. No code changes.
 
 > Markdown notes: snarkdown is a tiny renderer — keep each list item on a **single line**
@@ -126,7 +126,7 @@ each language:
 
 ```json
 {
-  "id": "my-style", "emoji": "🍕",
+  "id": "my-style", "icon": "verace",
   "hydration": 65, "salt": 2.5, "yeast": 0.2, "oil": 0, "sugar": 0,
   "starter": 15, "ballWeight": 250,
   "i18n": {
@@ -138,3 +138,7 @@ each language:
 
 No locale-file edits are needed for a recipe — `locales/*.json` hold only UI
 strings. A missing `i18n.<lang>` falls back to `i18n.en`.
+
+The `icon` field is the name of a line-icon defined in `src/ui/icons.ts` (e.g.
+`verace`, `canotto`, `teglia`, `focaccia`, `wheat`, `kneading`). To add a new
+recipe/guide icon, add its SVG paths to the `ICONS` map there.

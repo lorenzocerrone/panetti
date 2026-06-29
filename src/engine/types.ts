@@ -36,7 +36,7 @@ export interface RecipeText {
 /** A pre-built dough style (config/recipes.json). */
 export interface Recipe {
   id: string;
-  emoji: string;
+  icon: string;
   hydration: number;
   salt: number;
   yeast: number;

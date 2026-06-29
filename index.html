@@ -10,14 +10,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍕</text></svg>" />
+  <link rel="icon" href="/favicon.svg" />
 </head>
 <body>
   <div class="bg-glow"></div>
 
   <header class="topbar">
     <div class="brand">
-      <span class="brand-mark">🍕</span>
+      <span class="brand-mark icon" data-icon="logo-ball"></span>
       <div>
         <h1>Panetti</h1>
         <p class="tagline" data-i18n="ui.tagline">Dough calculator for the obsessed</p>
@@ -29,7 +29,7 @@
         <a href="about.html" class="nav-link" data-i18n="nav.about">About</a>
         <a href="guides.html" class="nav-link" data-i18n="nav.guides">Guides</a>
       </nav>
-      <button id="share-btn" class="ghost-btn" data-i18n="ui.share" data-i18n-title="ui.shareTitle" title="Copy a shareable link to this exact dough">🔗 share</button>
+      <button id="share-btn" class="ghost-btn" data-i18n-title="ui.shareTitle" title="Copy a shareable link to this exact dough"><span class="icon" data-icon="share"></span> <span data-i18n="ui.share">share</span></button>
       <div class="seg lang-seg" id="lang-seg" aria-label="Language"></div>
     </div>
   </header>
@@ -48,7 +48,7 @@
     <section class="panel recipe-main">
       <div class="panel-head">
         <h2 id="active-name">Recipe</h2>
-        <button id="copy-btn" class="ghost-btn" data-i18n="ui.copy" data-i18n-title="ui.copyTitle" title="Copy recipe to clipboard">⧉ copy</button>
+        <button id="copy-btn" class="ghost-btn" data-i18n-title="ui.copyTitle" title="Copy recipe to clipboard"><span class="icon" data-icon="copy"></span> <span data-i18n="ui.copy">copy</span></button>
       </div>
       <p id="active-blurb" class="blurb"></p>
 
@@ -121,7 +121,7 @@
 
       <div class="subcard notes-card">
         <div class="subcard-head">
-          <h3 data-i18n="ui.notes">📝 Notes</h3>
+          <h3><span class="icon" data-icon="notes"></span> <span data-i18n="ui.notes">Notes</span></h3>
         </div>
         <p id="recipe-notes" class="notes"></p>
         <p id="recipe-source" class="source"></p>
@@ -137,7 +137,7 @@
     <section class="panel advanced">
       <div class="panel-head">
         <h2 data-i18n="ui.advanced">Advanced</h2>
-        <button id="reset-recipe" class="ghost-btn" data-i18n="ui.reset" data-i18n-title="ui.resetTitle" title="Reset sliders to this style's defaults">↺ reset</button>
+        <button id="reset-recipe" class="ghost-btn" data-i18n-title="ui.resetTitle" title="Reset sliders to this style's defaults"><span class="icon" data-icon="reset"></span> <span data-i18n="ui.reset">reset</span></button>
       </div>
 
       <!-- Sliders -->
@@ -151,7 +151,7 @@
       <!-- Sourdough starter (shown only when leavening = sourdough) -->
       <div class="subcard" id="starter" hidden>
         <div class="subcard-head">
-          <h3 data-i18n="ui.sourdoughStarter">🫧 Sourdough starter</h3>
+          <h3><span class="icon" data-icon="starter"></span> <span data-i18n="ui.sourdoughStarter">Sourdough starter</span></h3>
           <span class="hint" data-i18n="ui.replacesYeast">replaces the yeast</span>
         </div>
         <div class="slider-row">
@@ -174,7 +174,7 @@
       <!-- Ferment time/temp guide -->
       <div class="subcard" id="ferment-guide">
         <div class="subcard-head">
-          <h3 data-i18n="ui.fermentGuide">🕑 Ferment guide</h3>
+          <h3><span class="icon" data-icon="clock"></span> <span data-i18n="ui.fermentGuide">Ferment guide</span></h3>
           <span class="hint" data-i18n="ui.suggestsYeast">suggests yeast %</span>
         </div>
         <div class="guide-grid">
@@ -189,14 +189,14 @@
         </div>
         <div class="guide-out">
           <span><span id="guide-label" data-i18n="ui.suggestedYeast">Suggested fresh yeast:</span> <strong id="guide-yeast">—</strong></span>
-          <button id="apply-yeast" class="ghost-btn" data-i18n="ui.apply">apply →</button>
+          <button id="apply-yeast" class="ghost-btn"><span data-i18n="ui.apply">apply</span> <span class="icon" data-icon="apply"></span></button>
         </div>
       </div>
 
       <!-- Preferment splitter -->
       <div class="subcard" id="preferment">
         <div class="subcard-head">
-          <h3 data-i18n="ui.preferment">🧫 Preferment</h3>
+          <h3><span class="icon" data-icon="flask"></span> <span data-i18n="ui.preferment">Preferment</span></h3>
           <div class="seg" id="preferment-seg"></div>
         </div>
         <div id="preferment-controls" hidden>
