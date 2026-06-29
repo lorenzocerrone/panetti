@@ -8,13 +8,13 @@
   ],
 
   "ingredientMeta": {
-    "flour":   { "color": "#e9d8c4" },
-    "water":   { "color": "#5db8ff" },
-    "salt":    { "color": "#e8e8e8" },
-    "yeast":   { "color": "#c9a36b" },
-    "starter": { "color": "#c98b5e" },
-    "oil":     { "color": "#ffd23d" },
-    "sugar":   { "color": "#ff9ecf" }
+    "flour":   { "color": "#C8A86A" },
+    "water":   { "color": "#7C6E54" },
+    "salt":    { "color": "#EDE3C8" },
+    "yeast":   { "color": "#A85E30" },
+    "starter": { "color": "#B57A45" },
+    "oil":     { "color": "#C7A33A" },
+    "sugar":   { "color": "#C98BA0" }
   },
 
   "yeastFactors":   { "fresh": 1, "active": 0.4, "instant": 0.33 },

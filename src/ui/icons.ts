@@ -90,6 +90,7 @@ export function hydrateIcons(root: ParentNode = document): void {
 const DOUGH_DEFS = `
 <svg id="dough-defs" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <clipPath id="cDome"><path d="M10,33 C10,21 17,13 28,13 C39,13 46,21 46,33 A 2.5 2.5 0 0 1 43.5,34 L12.5,34 A 2.5 2.5 0 0 1 10,33 Z"/></clipPath>
+  <clipPath id="tubFill"><path d="M16,22 L40,22 L37.5,51 L18.5,51 Z"/></clipPath>
   <symbol id="dome" viewBox="0 0 56 40">
     <ellipse cx="28" cy="35.4" rx="19" ry="1.8" fill="#3B3327" opacity="0.08"/>
     <path d="M10,33 C10,21 17,13 28,13 C39,13 46,21 46,33 A 2.5 2.5 0 0 1 43.5,34 L12.5,34 A 2.5 2.5 0 0 1 10,33 Z" fill="#A85E30" fill-opacity="0.20" stroke="#3B3327" stroke-width="1.8" stroke-linejoin="round"/>
@@ -117,29 +118,50 @@ export function mountDoughDefs(): void {
   document.body.appendChild(tpl.content.firstElementChild!);
 }
 
-/** A top-down cassetta (proofing tray) of six balls — the terminal 6+ state. */
+/** A top-down cassetta (proofing tray) of six balls — one full box of panetti. */
 function cassetta(): string {
   const balls = [[6, 4], [30, 4], [54, 4], [6, 28], [30, 28], [54, 28]]
     .map(([x, y]) => `<use href="#balltop" x="${x}" y="${y}" width="24" height="24"/>`)
     .join("");
   return (
-    `<svg class="dough-fig" viewBox="0 0 84 56" width="80" height="53" fill="none">` +
+    `<svg class="dough-fig" viewBox="0 0 84 56" width="66" height="44" fill="none">` +
     `<rect x="2" y="1.5" width="80" height="53" rx="4" fill="#A85E30" fill-opacity="0.06" stroke="#3B3327" stroke-width="1.8"/>` +
     `${balls}</svg>`
   );
 }
 
-/** The Panetti figure: 1–5 dough domes in a row, or a cassetta at 6+. */
+/** The Panetti figure: 1–5 dough domes; at 6+, boxes of six (cassette) plus a
+    remainder of loose domes — e.g. 15 → 2 boxes + 3 domes. Capped at 3 boxes (18). */
 export function domeRow(n: number): string {
-  if (n >= 6) return cassetta();
   const dome =
-    `<svg class="dough-fig" viewBox="0 0 56 40" width="46" height="33" fill="none">` +
+    `<svg class="dough-fig" viewBox="0 0 56 40" width="42" height="30" fill="none">` +
     `<use href="#dome" width="56" height="40"/></svg>`;
-  return dome.repeat(Math.max(1, Math.round(n)));
+  const count = Math.max(1, Math.round(n));
+  if (count <= 5) return dome.repeat(count);
+  const boxes = Math.min(3, Math.floor(count / 6));
+  const remainder = count >= 18 ? 0 : count % 6;
+  return cassetta().repeat(boxes) + dome.repeat(remainder);
 }
 
-/** The Total-dough figure: a proofing tub whose fill height tracks `ratio` (0–1). */
-export function tub(ratio: number): string {
+/** The Total-dough figure: one or more proofing tubs, one per kg, with a
+    fractional last tub. 1 kg → one full tub; 1.5 kg → full + half; capped at 5. */
+export function tubRow(grams: number): string {
+  const kg = grams / 1000;
+  const fills: number[] = [];
+  if (kg >= 5) {
+    for (let i = 0; i < 5; i++) fills.push(1);
+  } else {
+    const full = Math.floor(kg);
+    for (let i = 0; i < full; i++) fills.push(1);
+    const frac = kg - full;
+    if (frac > 0.001) fills.push(Math.max(0.12, frac));
+    if (fills.length === 0) fills.push(0.12); // ~empty batch → one low tub
+  }
+  return fills.map((f) => tub(f)).join("");
+}
+
+/** A single proofing tub whose fill height tracks `ratio` (0–1). */
+function tub(ratio: number): string {
   const r = Math.max(0, Math.min(1, ratio));
   const top = 49 - r * 22; // dough crest y: 49 (near empty) → 27 (full)
   const dough = `M17,${(top + 6).toFixed(1)} Q28,${top.toFixed(1)} 39,${(top + 6).toFixed(1)} L39,51 L17,51 Z`;
@@ -153,8 +175,7 @@ export function tub(ratio: number): string {
     })
     .join("");
   return (
-    `<svg class="dough-fig" viewBox="0 0 56 60" width="50" height="54" fill="none">` +
-    `<clipPath id="tubFill"><path d="M16,22 L40,22 L37.5,51 L18.5,51 Z"/></clipPath>` +
+    `<svg class="dough-fig" viewBox="0 0 56 60" width="40" height="43" fill="none">` +
     `<ellipse cx="28" cy="55" rx="16" ry="2.4" fill="#3B3327" opacity="0.10"/>` +
     `<g clip-path="url(#tubFill)"><path d="${dough}" fill="#A85E30" fill-opacity="0.26"/>${bubbleSvg}</g>` +
     `<g stroke="#3B3327" stroke-width="0.8" opacity="0.35">` +

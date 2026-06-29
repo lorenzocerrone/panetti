@@ -248,8 +248,6 @@ body {
   box-shadow: 0 1px 4px rgba(80, 60, 30, 0.10);
 }
 .recipe-card .rc-top { display: flex; align-items: center; gap: 9px; margin-bottom: 5px; }
-.recipe-card .rc-icon { width: 20px; height: 20px; color: var(--pan-muted); }
-.recipe-card.active .rc-icon { color: var(--pan-sienna); }
 .recipe-card .rc-name { font-family: var(--font); font-weight: 600; font-size: 17px; }
 .recipe-card .rc-blurb { color: var(--pan-muted); font-size: 13px; line-height: 1.45; }
 .recipe-card .rc-tags { margin-top: auto; padding-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
@@ -500,10 +498,12 @@ input[type="range"]::-moz-range-track { height: 1.5px; }
 .fig-unit { font-size: 21px; font-weight: 400; margin-left: 5px; color: var(--pan-muted); }
 .fig-art {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: flex-end;
-  gap: 7px;
-  height: 54px;
+  align-content: flex-end;
+  gap: 6px 5px;
+  min-height: 54px;
   margin: 15px 0 12px;
 }
 .fig-art svg { display: block; }
@@ -537,7 +537,7 @@ input[type="range"]::-moz-range-track { height: 1.5px; }
 .ingredients td:nth-child(2) { text-align: right; font-family: var(--mono); font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums; }
 .ingredients td:nth-child(3) { text-align: right; font-family: var(--mono); font-size: 13px; color: var(--pan-muted); font-variant-numeric: tabular-nums; }
 .ingredients tr:last-child td { border-bottom: 0; }
-.ing-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 9px; vertical-align: middle; }
+.ing-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; border: 1px solid var(--pan-ink); margin-right: 10px; vertical-align: middle; }
 
 .method {
   margin-top: 20px;
@@ -718,8 +718,7 @@ a.brand { text-decoration: none; color: inherit; }
 }
 
 .guide-list { display: flex; flex-direction: column; gap: 4px; }
-#active-name { display: flex; align-items: center; gap: 10px; font-size: 25px; letter-spacing: 0.1em; }
-#active-name .icon { color: var(--pan-sienna); width: 0.95em; height: 0.95em; }
+#active-name { font-size: 25px; letter-spacing: 0.1em; }
 
 .guide-link {
   display: flex; align-items: center; gap: 9px;

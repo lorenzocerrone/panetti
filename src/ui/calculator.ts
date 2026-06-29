@@ -33,7 +33,7 @@ import {
 } from "../state/store";
 import type { AppState } from "../state/types";
 import { $, setFill, showToast } from "./dom";
-import { icon, hydrateIcons, mountDoughDefs, domeRow, tub } from "./icons";
+import { icon, hydrateIcons, mountDoughDefs, domeRow, tubRow } from "./icons";
 
 const adj = ADJUSTMENTS;
 let state: AppState;
@@ -102,7 +102,6 @@ function renderRecipes(): void {
     btn.className = "recipe-card" + (r.id === state.recipeId ? " active" : "");
     btn.innerHTML = `
       <div class="rc-top">
-        ${icon(r.icon, "rc-icon")}
         <span class="rc-name">${rt(r, "name")}</span>
       </div>
       <div class="rc-blurb">${rt(r, "blurb")}</div>
@@ -169,7 +168,7 @@ function render(): void {
   const name = rt(r, "name");
   const notes = rt(r, "notes");
 
-  $("#active-name").innerHTML = `${icon(r.icon)} <span>${name}</span>`;
+  $("#active-name").textContent = name;
   $("#active-blurb").textContent = rt(r, "blurb");
   $("#recipe-notes").textContent = isSourdough(state)
     ? tp(t("ui.sourdoughNote"), { name, notes })
@@ -199,7 +198,7 @@ function render(): void {
     sp > 0 ? `${td.slice(0, sp)}<span class="fig-unit">${td.slice(sp + 1)}</span>` : td;
   $("#panetti-count").textContent = fmtCount(c.panetti);
   // Dough figures: tub fill tracks the batch weight; domes count the panetti.
-  $("#total-dough-art").innerHTML = tub(c.totalDough / 2500);
+  $("#total-dough-art").innerHTML = tubRow(c.totalDough);
   $("#panetti-art").innerHTML = domeRow(c.panetti);
   $("#panetti-cap-extra").textContent = " · " + fmt(c.ballWeight);
 
