@@ -1,7 +1,7 @@
 {
   "name": "panetti",
   "version": "2.0.0",
-  "description": "A pizza dough calculator using baker's percentages.",
+  "description": "The tool for the pragmatic home baker — a pizza dough calculator using baker's percentages.",
   "keywords": [
     "pizza",
     "dough",

@@ -1,14 +1,19 @@
 # Panetti — Pizza Dough Calculator
 
-A slick, dependency-free static page for scaling pizza dough recipes using
-**baker's percentages**. Pick a style, dial in hydration/salt/yeast/oil, and it
-computes exact gram weights for any number of *panetti* (dough balls).
+> The pragmatic home baker is not a slave to the dough. They fit the recipe to
+> their schedule, never their schedule to the dough.
+> — [The Pragmatic Home Baker's Manifesto](public/content/about.en.md)
 
-![Plain HTML/CSS/JS — no build step](https://img.shields.io/badge/build-none-brightgreen)
+**Panetti is the tool for the pragmatic home baker.** A small static site for
+scaling pizza dough recipes using **baker's percentages**. Pick a style, dial in
+hydration/salt/yeast/oil, and it computes exact gram weights for any number of
+*panetti* (dough balls).
+
+![Vite + TypeScript](https://img.shields.io/badge/Vite-TypeScript-646CFF)
 
 ## Features
 
-- **Pre-built styles** — Neapolitan, New York, Roman al taglio, Sicilian, Detroit, Focaccia.
+- **Pre-built styles** — Neapolitan Verace, Neapolitan Contemporanea, Romana alla Teglia, Focaccia.
 - **On-the-fly tuning** — sliders for hydration, salt, yeast, oil and sugar; live gram readouts.
 - **Two calculation modes**
   - *By dough balls* — enter count × weight, get the full ingredient list.
@@ -23,7 +28,7 @@ computes exact gram weights for any number of *panetti* (dough balls).
 
 ## Configuration (no code, just JSON)
 
-All data and text live in editable JSON files loaded at runtime — **no build step**:
+All data and UI text live in editable JSON files — no code to touch:
 
 ```
 config/
@@ -105,13 +110,18 @@ npm run preview     # serve the built dist/ locally
 
 ## Deploy to GitHub Pages
 
-A GitHub Actions workflow at `.github/workflows/pages.yml` runs `typecheck → test → build`
-on every push and pull request, then deploys the built `dist/` to Pages on `main`.
+A GitHub Actions workflow at `.github/workflows/pages.yml` runs `typecheck → test → build`,
+then publishes the built `dist/` to the root of the `gh-pages` branch on every push to
+`main` (or a manual run).
 
 1. Push to a repo.
-2. **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-3. Push to `main` (or run the workflow manually) — the `build` job runs the checks,
-   then `deploy` publishes `dist/` to `https://<user>.github.io/<repo>/`.
+2. **Settings → Pages → Build and deployment → Source: Deploy from a branch → `gh-pages` / (root)**.
+3. Push to `main` (or run the workflow manually) — it runs the checks and publishes
+   `dist/` to `https://<user>.github.io/<repo>/`.
+
+**PR previews:** pull requests from the repo owner (or once a review approves them) get a
+standalone build at `/pr-preview/pr-<number>/`, posted as a sticky comment and cleaned up
+automatically when the PR is merged or closed.
 
 > The build uses a relative base (`base: "./"`), so it works at a domain root or under
 > a project subpath without configuration. Asset filenames are content-hashed for cache busting.
