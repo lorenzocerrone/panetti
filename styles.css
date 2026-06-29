@@ -203,11 +203,19 @@ body {
   margin-bottom: 14px;
 }
 .panel-head h2 {
-  font-family: var(--serif);
-  font-size: 20px;
-  font-weight: 600;
+  font-family: var(--font);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pan-ink);
 }
-.hint { color: var(--text-faint); font-size: 12px; }
+.hint {
+  color: var(--pan-faint);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
 
 /* ---------- Recipes ---------- */
 /* Full-width strip: cards share a row, wrapping on narrow screens. */
@@ -221,28 +229,31 @@ body {
 }
 
 .recipe-card {
+  display: flex;
+  flex-direction: column;
   text-align: left;
   min-width: 200px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: var(--radius-sm);
-  padding: 13px 14px;
+  border: 1px solid var(--pan-rule-card);
+  background: var(--pan-panel);
+  border-radius: var(--pan-radius);
+  padding: 14px 15px;
   cursor: pointer;
-  transition: all 0.18s ease;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
   color: var(--text);
   font: inherit;
 }
-.recipe-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.recipe-card:hover { border-color: rgba(62, 51, 36, 0.5); }
 .recipe-card.active {
-  border-color: var(--accent);
-  background: var(--accent-soft);
-  box-shadow: inset 0 0 0 1px var(--accent);
+  border: 1.5px solid var(--pan-sienna);
+  box-shadow: 0 1px 4px rgba(80, 60, 30, 0.10);
 }
-.recipe-card .rc-top { display: flex; align-items: center; gap: 9px; margin-bottom: 4px; }
-.recipe-card .rc-icon { width: 20px; height: 20px; color: var(--accent-2); }
-.recipe-card .rc-name { font-weight: 700; font-size: 15px; }
-.recipe-card .rc-blurb { color: var(--text-dim); font-size: 12px; line-height: 1.4; }
-.recipe-card .rc-tags { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+.recipe-card .rc-top { display: flex; align-items: center; gap: 9px; margin-bottom: 5px; }
+.recipe-card .rc-icon { width: 20px; height: 20px; color: var(--pan-muted); }
+.recipe-card.active .rc-icon { color: var(--pan-sienna); }
+.recipe-card .rc-name { font-family: var(--font); font-weight: 600; font-size: 17px; }
+.recipe-card .rc-blurb { color: var(--pan-muted); font-size: 13px; line-height: 1.45; }
+.recipe-card .rc-tags { margin-top: auto; padding-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+.recipe-card.active .tag { color: var(--pan-sienna); background: var(--pan-sienna-tint); }
 .tag {
   font-family: var(--mono);
   font-size: 10px;
