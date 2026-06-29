@@ -33,7 +33,7 @@ import {
 } from "../state/store";
 import type { AppState } from "../state/types";
 import { $, setFill, showToast } from "./dom";
-import { icon, hydrateIcons } from "./icons";
+import { icon, hydrateIcons, mountDoughDefs, domeRow, tub } from "./icons";
 
 const adj = ADJUSTMENTS;
 let state: AppState;
@@ -192,8 +192,16 @@ function render(): void {
     sourceEl.hidden = true;
   }
 
-  $("#total-dough").textContent = fmt(c.totalDough);
+  // Total dough: big mono number + faint unit, with the proofing-tub figure.
+  const td = fmt(c.totalDough);
+  const sp = td.lastIndexOf(" ");
+  $("#total-dough").innerHTML =
+    sp > 0 ? `${td.slice(0, sp)}<span class="fig-unit">${td.slice(sp + 1)}</span>` : td;
   $("#panetti-count").textContent = fmtCount(c.panetti);
+  // Dough figures: tub fill tracks the batch weight; domes count the panetti.
+  $("#total-dough-art").innerHTML = tub(c.totalDough / 2500);
+  $("#panetti-art").innerHTML = domeRow(c.panetti);
+  $("#panetti-cap-extra").textContent = " · " + fmt(c.ballWeight);
 
   // gram readouts under sliders (hydration shows TOTAL water)
   const gramsMap: Record<string, keyof Computed["ing"]> = {
@@ -602,6 +610,7 @@ export function initCalculator(): void {
 
   applyStaticI18n();
   hydrateIcons(); // fill brand mark + static heading/button [data-icon] placeholders
+  mountDoughDefs(); // inject the shared #dome/#balltop symbols for the hero figures
   buildLangSeg($("#lang-seg"), state.lang, setLang);
 
   deserializeInto(state, incomingHash, RECIPES, adj); // restore from a shared link, if any

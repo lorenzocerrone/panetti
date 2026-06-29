@@ -474,28 +474,47 @@ input[type="range"]::-moz-range-track { height: 1.5px; }
 .headline {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 18px;
+  gap: 18px;
+  margin: 22px 0;
 }
-.big-stat {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 16px;
+/* Hero figure wells — big mono number, the dough figure, a mono caption. */
+.figure-well {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid var(--pan-rule);
+  border-radius: var(--pan-radius);
+  background: var(--pan-inset);
+  padding: 20px 18px 16px;
   text-align: center;
 }
+.figure-well--accent { border-color: rgba(168, 94, 48, 0.5); }
 .big-num {
-  display: block;
-  font-family: var(--serif);
-  font-size: 32px;
-  font-weight: 600;
-  line-height: 1.1;
+  font-family: var(--mono);
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--pan-ink);
 }
-/* Larger stats in the centerstage recipe column. */
-.recipe-main .big-num { font-size: 38px; }
-.recipe-main .big-stat { padding: 20px; }
-.big-num.accent { color: var(--accent); }
-.big-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.6px; }
+.big-num.accent { color: var(--pan-sienna); }
+.fig-unit { font-size: 21px; font-weight: 400; margin-left: 5px; color: var(--pan-muted); }
+.fig-art {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 7px;
+  height: 54px;
+  margin: 15px 0 12px;
+}
+.fig-art svg { display: block; }
+.fig-cap {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pan-muted);
+}
+.fig-cap-extra { text-transform: none; letter-spacing: 0.02em; }
 
 .ingredients { width: 100%; border-collapse: collapse; }
 .ingredients th {
