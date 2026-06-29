@@ -4,19 +4,26 @@ on:
   push:
     branches: [main]
   pull_request:
+    types: [opened, reopened, synchronize, closed]
+  pull_request_review:
+    types: [submitted]
   workflow_dispatch:
 
+# contents: write -> push built site to the gh-pages branch
+# pull-requests: write -> let the preview action post/update its sticky comment
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
+  pull-requests: write
 
+# Serialise pushes to gh-pages per ref so prod and preview deploys never race.
 concurrency:
-  group: pages
+  group: pages-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build:
+  # Production: publish the site to the root of gh-pages on every push to main.
+  deploy-prod:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -31,18 +38,42 @@ jobs:
         run: npm test
       - name: Build
         run: npm run build
-      - uses: actions/upload-pages-artifact@v5
+      - name: Publish to gh-pages root
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: dist
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          # Preserve the pr-preview/ subfolders managed by the preview job.
+          keep_files: true
 
-  deploy:
-    needs: build
-    if: github.event_name == 'push'
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  # Preview: publish a per-PR build to gh-pages at /pr-preview/pr-<number>/.
+  # Gated so it only runs for the owner's PRs or on an approval review; the
+  # closed event always passes so the preview gets cleaned up on merge/close.
+  preview:
+    if: >-
+      github.event_name == 'pull_request' && github.event.action == 'closed' ||
+      github.event.pull_request.user.login == github.repository_owner ||
+      (github.event_name == 'pull_request_review' && github.event.review.state == 'approved')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/configure-pages@v6
-      - id: deployment
-        uses: actions/deploy-pages@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        if: github.event.action != 'closed'
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+        if: github.event.action != 'closed'
+      - name: Typecheck
+        if: github.event.action != 'closed'
+        run: npm run typecheck
+      - name: Test
+        if: github.event.action != 'closed'
+        run: npm test
+      - name: Build
+        if: github.event.action != 'closed'
+        run: npm run build
+      - name: Deploy / remove PR preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./dist
