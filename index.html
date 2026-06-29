@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light" />
+  <style>html{background:#E3D8BE}</style>
+  <meta name="description" content="A slick pizza dough calculator using baker's percentages. Pick a style, dial in your dough, and scale to any number of panetti." />
+  <title>Panetti — Pizza Dough Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="./favicon.svg" />
+  <script type="module" crossorigin src="./assets/main-CT-IDjCE.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/icons-DxUxIBGJ.js">
+  <link rel="stylesheet" crossorigin href="./assets/icons-DKcnO_Ay.css">
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <img class="brand-logo" src="./logo.svg" alt="Panetti" width="56" height="56" />
+      <div class="wordmark">
+        <h1>Panetti</h1>
+        <p class="brand-sub" data-i18n="ui.brandSub">Pizza Dough Calculator</p>
+        <p class="tagline" data-i18n="ui.tagline">baker's % engine · v2.0</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <nav class="nav-links" aria-label="Pages">
+        <a href="index.html" class="nav-link active" data-i18n="nav.calculator">Calculator</a>
+        <a href="about.html" class="nav-link" data-i18n="nav.about">About</a>
+        <a href="guides.html" class="nav-link" data-i18n="nav.guides">Guides</a>
+      </nav>
+      <button id="share-btn" class="ghost-btn" data-i18n-title="ui.shareTitle" title="Copy a shareable link to this exact dough"><span class="icon" data-icon="share"></span> <span data-i18n="ui.share">share</span></button>
+      <div class="seg lang-seg" id="lang-seg" aria-label="Language"></div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- TOP: recipe picker (full-width strip) -->
+    <section class="panel recipes" aria-label="Recipes">
+      <div class="panel-head">
+        <h2 data-i18n="ui.styles">Styles</h2>
+        <span class="hint" data-i18n="ui.tapToLoad">tap to load</span>
+      </div>
+      <div id="recipe-list" class="recipe-list"></div>
+    </section>
+
+    <!-- CENTER: the recipe (centerstage) -->
+    <section class="panel recipe-main">
+      <div class="panel-head">
+        <h2 id="active-name">Recipe</h2>
+        <button id="copy-btn" class="ghost-btn" data-i18n-title="ui.copyTitle" title="Copy recipe to clipboard"><span class="icon" data-icon="copy"></span> <span data-i18n="ui.copy">copy</span></button>
+      </div>
+      <p id="active-blurb" class="blurb"></p>
+
+      <!-- Calculation mode: by dough balls or by flour weight -->
+      <div class="mode-toggle" role="tablist" aria-label="Calculation mode">
+        <button id="mode-balls" class="active" role="tab" data-i18n="ui.modeBalls">By dough balls</button>
+        <button id="mode-flour" role="tab" data-i18n="ui.modeFlour">By flour weight</button>
+      </div>
+
+      <!-- Base inputs: panetti / flour -->
+      <div class="batch">
+        <div class="field" data-mode="balls">
+          <label for="ball-count" data-i18n="ui.panettiInput">Panetti</label>
+          <div class="field-control">
+            <input id="ball-count" type="number" min="1" step="1" value="4" />
+            <div class="steppers">
+              <button type="button" class="stepper" data-step-up="ball-count" aria-label="Increase panetti">+</button>
+              <button type="button" class="stepper" data-step-down="ball-count" aria-label="Decrease panetti">−</button>
+            </div>
+          </div>
+        </div>
+        <div class="field" data-mode="balls">
+          <label for="ball-weight" data-i18n="ui.gramsPerBall">Grams / panetto</label>
+          <div class="field-control">
+            <input id="ball-weight" type="number" min="50" step="5" value="250" />
+            <div class="steppers">
+              <button type="button" class="stepper" data-step-up="ball-weight" aria-label="Increase grams per panetto">+</button>
+              <button type="button" class="stepper" data-step-down="ball-weight" aria-label="Decrease grams per panetto">−</button>
+            </div>
+          </div>
+        </div>
+        <div class="field" data-mode="flour" hidden>
+          <label for="flour-input" data-i18n="ui.flourG">Flour (g)</label>
+          <div class="field-control">
+            <input id="flour-input" type="number" min="50" step="10" value="1000" />
+            <div class="steppers">
+              <button type="button" class="stepper" data-step-up="flour-input" aria-label="Increase flour">+</button>
+              <button type="button" class="stepper" data-step-down="flour-input" aria-label="Decrease flour">−</button>
+            </div>
+          </div>
+        </div>
+        <div class="field" data-mode="flour" hidden>
+          <label for="flour-ball-weight" data-i18n="ui.gramsPerBall">Grams / panetto</label>
+          <div class="field-control">
+            <input id="flour-ball-weight" type="number" min="50" step="5" value="250" />
+            <div class="steppers">
+              <button type="button" class="stepper" data-step-up="flour-ball-weight" aria-label="Increase grams per panetto">+</button>
+              <button type="button" class="stepper" data-step-down="flour-ball-weight" aria-label="Decrease grams per panetto">−</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="headline">
+        <div class="figure-well">
+          <span id="total-dough" class="big-num">—</span>
+          <div class="fig-art" id="total-dough-art" aria-hidden="true"></div>
+          <span class="fig-cap" data-i18n="ui.totalDough">total dough</span>
+        </div>
+        <div class="figure-well figure-well--accent">
+          <span id="panetti-count" class="big-num accent">—</span>
+          <div class="fig-art" id="panetti-art" aria-hidden="true"></div>
+          <span class="fig-cap"><span data-i18n="ui.panettiLabel">panetti</span><span id="panetti-cap-extra" class="fig-cap-extra"></span></span>
+        </div>
+      </div>
+
+      <table class="ingredients" id="ingredients">
+        <thead>
+          <tr>
+            <th data-i18n="ui.ingredient">Ingredient</th>
+            <th data-i18n="ui.amount">Amount</th>
+            <th data-i18n="ui.bakersPct">Baker's %</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <div class="preferment-breakdown" id="pf-breakdown" hidden>
+        <div class="pf-col">
+          <h4 id="pf-title">Poolish</h4>
+          <span class="pf-sub" data-i18n="ui.nightBefore">night before</span>
+          <table class="ingredients mini"><tbody id="pf-pre"></tbody></table>
+        </div>
+        <div class="pf-col">
+          <h4 data-i18n="ui.finalDough">Final dough</h4>
+          <span class="pf-sub" data-i18n="ui.mixingDay">mixing day</span>
+          <table class="ingredients mini"><tbody id="pf-final"></tbody></table>
+        </div>
+      </div>
+
+      <div class="method">
+        <h3 data-i18n="ui.method">Method</h3>
+        <ol id="method-steps"></ol>
+        <p id="method-note" class="method-note hint"></p>
+      </div>
+
+      <div class="subcard notes-card">
+        <div class="subcard-head">
+          <h3><span class="icon" data-icon="notes"></span> <span data-i18n="ui.notes">Notes</span></h3>
+        </div>
+        <p id="recipe-notes" class="notes"></p>
+        <p id="recipe-source" class="source"></p>
+      </div>
+
+      <div class="learn-more">
+        <span class="learn-more-label" data-i18n="ui.learnMore">Want to know more?</span>
+        <div class="learn-more-links" id="learn-more-links"></div>
+      </div>
+    </section>
+
+    <!-- RIGHT: advanced edit -->
+    <section class="panel advanced">
+      <div class="panel-head">
+        <h2 data-i18n="ui.advanced">Advanced</h2>
+        <button id="reset-recipe" class="ghost-btn" data-i18n-title="ui.resetTitle" title="Reset sliders to this style's defaults"><span class="icon" data-icon="reset"></span> <span data-i18n="ui.reset">reset</span></button>
+      </div>
+
+      <!-- Sliders -->
+      <div class="sliders" id="sliders"></div>
+
+      <div class="yeast-type">
+        <label data-i18n="ui.leavening">Leavening</label>
+        <div class="seg" id="yeast-seg"></div>
+      </div>
+
+      <!-- Sourdough starter (shown only when leavening = sourdough) -->
+      <div class="subcard" id="starter" hidden>
+        <div class="subcard-head">
+          <h3><span class="icon" data-icon="starter"></span> <span data-i18n="ui.sourdoughStarter">Sourdough starter</span></h3>
+          <span class="hint" data-i18n="ui.replacesYeast">replaces the yeast</span>
+        </div>
+        <div class="slider-row">
+          <div class="sl-head">
+            <span class="sl-name" data-i18n="ui.starterPctLabel">Starter (% of flour)</span>
+            <span class="sl-val"><span id="st-pct-val">15</span>% <small id="st-pct-g"></small></span>
+          </div>
+          <input id="st-pct" type="range" min="5" max="50" step="1" value="15" />
+        </div>
+        <div class="slider-row">
+          <div class="sl-head">
+            <span class="sl-name" data-i18n="ui.starterHydLabel">Starter hydration</span>
+            <span class="sl-val"><span id="st-hyd-val">100</span>%</span>
+          </div>
+          <input id="st-hyd" type="range" min="50" max="125" step="5" value="100" />
+        </div>
+        <p id="st-hint" class="hint"></p>
+      </div>
+
+      <!-- Ferment time/temp guide -->
+      <div class="subcard" id="ferment-guide">
+        <div class="subcard-head">
+          <h3><span class="icon" data-icon="clock"></span> <span data-i18n="ui.fermentGuide">Ferment guide</span></h3>
+          <span class="hint" data-i18n="ui.suggestsYeast">suggests yeast %</span>
+        </div>
+        <div class="guide-grid">
+          <div class="field">
+            <label for="ferment-hours" data-i18n="ui.proofTime">Proof time (h)</label>
+            <input id="ferment-hours" type="number" min="1" max="120" step="1" value="8" />
+          </div>
+          <div class="field">
+            <label for="ferment-temp" data-i18n="ui.temp">Temp (°C)</label>
+            <input id="ferment-temp" type="number" min="2" max="35" step="1" value="20" />
+          </div>
+        </div>
+        <div class="guide-out">
+          <span><span id="guide-label" data-i18n="ui.suggestedYeast">Suggested fresh yeast:</span> <strong id="guide-yeast">—</strong></span>
+          <button id="apply-yeast" class="ghost-btn"><span data-i18n="ui.apply">apply</span> <span class="icon" data-icon="apply"></span></button>
+        </div>
+      </div>
+
+      <!-- Preferment splitter -->
+      <div class="subcard" id="preferment">
+        <div class="subcard-head">
+          <h3><span class="icon" data-icon="flask"></span> <span data-i18n="ui.preferment">Preferment</span></h3>
+          <div class="seg" id="preferment-seg"></div>
+        </div>
+        <div id="preferment-controls" hidden>
+          <div class="slider-row">
+            <div class="sl-head">
+              <span class="sl-name" data-i18n="ui.flourInPreferment">Flour in preferment</span>
+              <span class="sl-val"><span id="pf-pct-val">30</span>%</span>
+            </div>
+            <input id="pf-pct" type="range" min="10" max="100" step="5" value="30" />
+          </div>
+          <p id="pf-hint" class="hint"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span data-i18n="ui.footer">Built with baker's percentages · Flour = 100%</span>
+    <span id="ferment-tip"></span>
+  </footer>
+
+</body>
+</html>
