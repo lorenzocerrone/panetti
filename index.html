@@ -63,19 +63,43 @@
       <div class="batch">
         <div class="field" data-mode="balls">
           <label for="ball-count" data-i18n="ui.panettiInput">Panetti</label>
-          <input id="ball-count" type="number" min="1" step="1" value="4" />
+          <div class="field-control">
+            <input id="ball-count" type="number" min="1" step="1" value="4" />
+            <div class="steppers">
+              <button type="button" class="stepper" data-step-up="ball-count" aria-label="Increase panetti">+</button>
+              <button type="button" class="stepper" data-step-down="ball-count" aria-label="Decrease panetti">−</button>
+            </div>
+          </div>
         </div>
         <div class="field" data-mode="balls">
           <label for="ball-weight" data-i18n="ui.gramsPerBall">Grams / panetto</label>
-          <input id="ball-weight" type="number" min="50" step="5" value="250" />
+          <div class="field-control">
+            <input id="ball-weight" type="number" min="50" step="5" value="250" />
+            <div class="steppers">
+              <button type="button" class="stepper" data-step-up="ball-weight" aria-label="Increase grams per panetto">+</button>
+              <button type="button" class="stepper" data-step-down="ball-weight" aria-label="Decrease grams per panetto">−</button>
+            </div>
+          </div>
         </div>
         <div class="field" data-mode="flour" hidden>
           <label for="flour-input" data-i18n="ui.flourG">Flour (g)</label>
-          <input id="flour-input" type="number" min="50" step="10" value="1000" />
+          <div class="field-control">
+            <input id="flour-input" type="number" min="50" step="10" value="1000" />
+            <div class="steppers">
+              <button type="button" class="stepper" data-step-up="flour-input" aria-label="Increase flour">+</button>
+              <button type="button" class="stepper" data-step-down="flour-input" aria-label="Decrease flour">−</button>
+            </div>
+          </div>
         </div>
         <div class="field" data-mode="flour" hidden>
           <label for="flour-ball-weight" data-i18n="ui.gramsPerBall">Grams / panetto</label>
-          <input id="flour-ball-weight" type="number" min="50" step="5" value="250" />
+          <div class="field-control">
+            <input id="flour-ball-weight" type="number" min="50" step="5" value="250" />
+            <div class="steppers">
+              <button type="button" class="stepper" data-step-up="flour-ball-weight" aria-label="Increase grams per panetto">+</button>
+              <button type="button" class="stepper" data-step-down="flour-ball-weight" aria-label="Decrease grams per panetto">−</button>
+            </div>
+          </div>
         </div>
       </div>
 

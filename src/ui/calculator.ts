@@ -565,6 +565,19 @@ function bindEvents(): void {
       render();
     });
   });
+
+  // +/- steppers on the base-input fields: nudge the native input (which
+  // honours its min/max/step) then fire `input` so the binding above runs.
+  document.querySelectorAll<HTMLButtonElement>(".stepper").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.stepUp ?? btn.dataset.stepDown;
+      if (!id) return;
+      const input = numInput(id);
+      if (btn.dataset.stepUp) input.stepUp();
+      else input.stepDown();
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+  });
 }
 
 export function initCalculator(): void {
