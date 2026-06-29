@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="color-scheme" content="dark" />
-  <style>html{background:#14100d}</style>
+  <meta name="color-scheme" content="light" />
+  <style>html{background:#E3D8BE}</style>
   <meta name="description" content="A slick pizza dough calculator using baker's percentages. Pick a style, dial in your dough, and scale to any number of panetti." />
   <title>Panetti — Pizza Dough Calculator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="icon" href="/favicon.svg" />
 </head>
 <body>
@@ -17,10 +17,11 @@
 
   <header class="topbar">
     <div class="brand">
-      <span class="brand-mark icon" data-icon="logo-ball"></span>
-      <div>
+      <img class="brand-logo" src="/logo.svg" alt="Panetti" width="56" height="56" />
+      <div class="wordmark">
         <h1>Panetti</h1>
-        <p class="tagline" data-i18n="ui.tagline">Dough calculator for the obsessed</p>
+        <p class="brand-sub" data-i18n="ui.brandSub">Pizza Dough Calculator</p>
+        <p class="tagline" data-i18n="ui.tagline">baker's % engine · v2.0</p>
       </div>
     </div>
     <div class="topbar-right">
@@ -62,30 +63,56 @@
       <div class="batch">
         <div class="field" data-mode="balls">
           <label for="ball-count" data-i18n="ui.panettiInput">Panetti</label>
-          <input id="ball-count" type="number" min="1" step="1" value="4" />
+          <div class="field-control">
+            <input id="ball-count" type="number" min="1" step="1" value="4" />
+            <div class="steppers">
+              <button type="button" class="stepper" data-step-up="ball-count" aria-label="Increase panetti">+</button>
+              <button type="button" class="stepper" data-step-down="ball-count" aria-label="Decrease panetti">−</button>
+            </div>
+          </div>
         </div>
         <div class="field" data-mode="balls">
           <label for="ball-weight" data-i18n="ui.gramsPerBall">Grams / panetto</label>
-          <input id="ball-weight" type="number" min="50" step="5" value="250" />
+          <div class="field-control">
+            <input id="ball-weight" type="number" min="50" step="5" value="250" />
+            <div class="steppers">
+              <button type="button" class="stepper" data-step-up="ball-weight" aria-label="Increase grams per panetto">+</button>
+              <button type="button" class="stepper" data-step-down="ball-weight" aria-label="Decrease grams per panetto">−</button>
+            </div>
+          </div>
         </div>
         <div class="field" data-mode="flour" hidden>
           <label for="flour-input" data-i18n="ui.flourG">Flour (g)</label>
-          <input id="flour-input" type="number" min="50" step="10" value="1000" />
+          <div class="field-control">
+            <input id="flour-input" type="number" min="50" step="10" value="1000" />
+            <div class="steppers">
+              <button type="button" class="stepper" data-step-up="flour-input" aria-label="Increase flour">+</button>
+              <button type="button" class="stepper" data-step-down="flour-input" aria-label="Decrease flour">−</button>
+            </div>
+          </div>
         </div>
         <div class="field" data-mode="flour" hidden>
           <label for="flour-ball-weight" data-i18n="ui.gramsPerBall">Grams / panetto</label>
-          <input id="flour-ball-weight" type="number" min="50" step="5" value="250" />
+          <div class="field-control">
+            <input id="flour-ball-weight" type="number" min="50" step="5" value="250" />
+            <div class="steppers">
+              <button type="button" class="stepper" data-step-up="flour-ball-weight" aria-label="Increase grams per panetto">+</button>
+              <button type="button" class="stepper" data-step-down="flour-ball-weight" aria-label="Decrease grams per panetto">−</button>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="headline">
-        <div class="big-stat">
+        <div class="figure-well">
           <span id="total-dough" class="big-num">—</span>
-          <span class="big-label" data-i18n="ui.totalDough">total dough</span>
+          <div class="fig-art" id="total-dough-art" aria-hidden="true"></div>
+          <span class="fig-cap" data-i18n="ui.totalDough">total dough</span>
         </div>
-        <div class="big-stat">
+        <div class="figure-well figure-well--accent">
           <span id="panetti-count" class="big-num accent">—</span>
-          <span class="big-label" data-i18n="ui.panettiLabel">panetti</span>
+          <div class="fig-art" id="panetti-art" aria-hidden="true"></div>
+          <span class="fig-cap"><span data-i18n="ui.panettiLabel">panetti</span><span id="panetti-cap-extra" class="fig-cap-extra"></span></span>
         </div>
       </div>
 

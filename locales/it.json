@@ -1,7 +1,8 @@
 {
   "ui": {
     "appTitle": "Panetti — Calcolatore per impasto pizza",
-    "tagline": "Il calcolatore d'impasto per veri appassionati",
+    "brandSub": "Calcolatore impasto pizza",
+    "tagline": "motore % del fornaio · v2.0",
     "modeBalls": "Per panetti",
     "modeFlour": "Per peso farina",
     "share": "condividi",

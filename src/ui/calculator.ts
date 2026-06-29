@@ -33,7 +33,7 @@ import {
 } from "../state/store";
 import type { AppState } from "../state/types";
 import { $, setFill, showToast } from "./dom";
-import { icon, hydrateIcons } from "./icons";
+import { icon, hydrateIcons, mountDoughDefs, domeRow, tubRow } from "./icons";
 
 const adj = ADJUSTMENTS;
 let state: AppState;
@@ -102,7 +102,6 @@ function renderRecipes(): void {
     btn.className = "recipe-card" + (r.id === state.recipeId ? " active" : "");
     btn.innerHTML = `
       <div class="rc-top">
-        ${icon(r.icon, "rc-icon")}
         <span class="rc-name">${rt(r, "name")}</span>
       </div>
       <div class="rc-blurb">${rt(r, "blurb")}</div>
@@ -131,11 +130,15 @@ function renderSliders(): void {
         <input type="range" min="${s.min}" max="${s.max}" step="${s.step}"
                value="${state.params[s.key]}" data-key="${s.key}" />`;
       const input = row.querySelector<HTMLInputElement>("input")!;
+      // Oil & Sugar dim to half-opacity while sitting at 0%.
+      const dimAtZero = () => row.classList.toggle("is-zero", Number(input.value) === 0);
       setFill(input, s.min, s.max);
+      dimAtZero();
       input.addEventListener("input", () => {
         state.params[s.key] = Number(input.value);
         row.querySelector(`[data-val="${s.key}"]`)!.textContent = input.value;
         setFill(input, s.min, s.max);
+        dimAtZero();
         render();
       });
       wrap.appendChild(row);
@@ -165,7 +168,7 @@ function render(): void {
   const name = rt(r, "name");
   const notes = rt(r, "notes");
 
-  $("#active-name").innerHTML = `${icon(r.icon)} <span>${name}</span>`;
+  $("#active-name").textContent = name;
   $("#active-blurb").textContent = rt(r, "blurb");
   $("#recipe-notes").textContent = isSourdough(state)
     ? tp(t("ui.sourdoughNote"), { name, notes })
@@ -188,8 +191,16 @@ function render(): void {
     sourceEl.hidden = true;
   }
 
-  $("#total-dough").textContent = fmt(c.totalDough);
+  // Total dough: big mono number + faint unit, with the proofing-tub figure.
+  const td = fmt(c.totalDough);
+  const sp = td.lastIndexOf(" ");
+  $("#total-dough").innerHTML =
+    sp > 0 ? `${td.slice(0, sp)}<span class="fig-unit">${td.slice(sp + 1)}</span>` : td;
   $("#panetti-count").textContent = fmtCount(c.panetti);
+  // Dough figures: tub fill tracks the batch weight; domes count the panetti.
+  $("#total-dough-art").innerHTML = tubRow(c.totalDough);
+  $("#panetti-art").innerHTML = domeRow(c.panetti);
+  $("#panetti-cap-extra").textContent = " · " + fmt(c.ballWeight);
 
   // gram readouts under sliders (hydration shows TOTAL water)
   const gramsMap: Record<string, keyof Computed["ing"]> = {
@@ -565,6 +576,19 @@ function bindEvents(): void {
       render();
     });
   });
+
+  // +/- steppers on the base-input fields: nudge the native input (which
+  // honours its min/max/step) then fire `input` so the binding above runs.
+  document.querySelectorAll<HTMLButtonElement>(".stepper").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.stepUp ?? btn.dataset.stepDown;
+      if (!id) return;
+      const input = numInput(id);
+      if (btn.dataset.stepUp) input.stepUp();
+      else input.stepDown();
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+  });
 }
 
 export function initCalculator(): void {
@@ -585,6 +609,7 @@ export function initCalculator(): void {
 
   applyStaticI18n();
   hydrateIcons(); // fill brand mark + static heading/button [data-icon] placeholders
+  mountDoughDefs(); // inject the shared #dome/#balltop symbols for the hero figures
   buildLangSeg($("#lang-seg"), state.lang, setLang);
 
   deserializeInto(state, incomingHash, RECIPES, adj); // restore from a shared link, if any

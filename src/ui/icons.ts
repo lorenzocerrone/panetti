@@ -80,3 +80,111 @@ export function hydrateIcons(root: ParentNode = document): void {
     if (name) el.innerHTML = icon(name);
   });
 }
+
+/* ===========================================================================
+   Dough iconography — the signature hero figures. A different spec from the
+   line icons above: flat ink outline (#3B3327) + sienna fill (#A85E30), no
+   gradients. The reusable #dome / #balltop symbols + #cDome clip live in a
+   single hidden <defs> mounted once; the tub & dome-row are drawn live.
+   =========================================================================== */
+const DOUGH_DEFS = `
+<svg id="dough-defs" width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <clipPath id="cDome"><path d="M10,33 C10,21 17,13 28,13 C39,13 46,21 46,33 A 2.5 2.5 0 0 1 43.5,34 L12.5,34 A 2.5 2.5 0 0 1 10,33 Z"/></clipPath>
+  <clipPath id="tubFill"><path d="M16,22 L40,22 L37.5,51 L18.5,51 Z"/></clipPath>
+  <symbol id="dome" viewBox="0 0 56 40">
+    <ellipse cx="28" cy="35.4" rx="19" ry="1.8" fill="#3B3327" opacity="0.08"/>
+    <path d="M10,33 C10,21 17,13 28,13 C39,13 46,21 46,33 A 2.5 2.5 0 0 1 43.5,34 L12.5,34 A 2.5 2.5 0 0 1 10,33 Z" fill="#A85E30" fill-opacity="0.20" stroke="#3B3327" stroke-width="1.8" stroke-linejoin="round"/>
+    <g clip-path="url(#cDome)" fill="#3B3327">
+      <circle cx="21" cy="26" r="1.5" opacity="0.15"/>
+      <circle cx="33" cy="21" r="1.1" opacity="0.13"/>
+      <circle cx="30" cy="30" r="1.6" opacity="0.15"/>
+      <circle cx="38" cy="26" r="1.2" opacity="0.12"/>
+      <circle cx="16" cy="30" r="1.1" opacity="0.12"/>
+    </g>
+    <path d="M15,20 A 18 18 0 0 1 27,15" stroke="#3B3327" stroke-width="1" opacity="0.28" fill="none"/>
+  </symbol>
+  <symbol id="balltop" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="22" fill="#A85E30" fill-opacity="0.20" stroke="#3B3327" stroke-width="1.8"/>
+    <circle cx="19" cy="20" r="1.6" fill="#3B3327" opacity="0.14"/>
+    <circle cx="28" cy="27" r="1.3" fill="#3B3327" opacity="0.12"/>
+  </symbol>
+</defs></svg>`;
+
+/** Mount the shared dough <defs> once (idempotent). */
+export function mountDoughDefs(): void {
+  if (document.getElementById("dough-defs")) return;
+  const tpl = document.createElement("template");
+  tpl.innerHTML = DOUGH_DEFS.trim();
+  document.body.appendChild(tpl.content.firstElementChild!);
+}
+
+/** A top-down cassetta (proofing tray) of six balls — one full box of panetti. */
+function cassetta(): string {
+  const balls = [[6, 4], [30, 4], [54, 4], [6, 28], [30, 28], [54, 28]]
+    .map(([x, y]) => `<use href="#balltop" x="${x}" y="${y}" width="24" height="24"/>`)
+    .join("");
+  return (
+    `<svg class="dough-fig" viewBox="0 0 84 56" width="66" height="44" fill="none">` +
+    `<rect x="2" y="1.5" width="80" height="53" rx="4" fill="#A85E30" fill-opacity="0.06" stroke="#3B3327" stroke-width="1.8"/>` +
+    `${balls}</svg>`
+  );
+}
+
+/** The Panetti figure: 1–5 dough domes; at 6+, boxes of six (cassette) plus a
+    remainder of loose domes — e.g. 15 → 2 boxes + 3 domes. Capped at 3 boxes (18). */
+export function domeRow(n: number): string {
+  const dome =
+    `<svg class="dough-fig" viewBox="0 0 56 40" width="42" height="30" fill="none">` +
+    `<use href="#dome" width="56" height="40"/></svg>`;
+  const count = Math.max(1, Math.round(n));
+  if (count <= 5) return dome.repeat(count);
+  const boxes = Math.min(3, Math.floor(count / 6));
+  const remainder = count >= 18 ? 0 : count % 6;
+  return cassetta().repeat(boxes) + dome.repeat(remainder);
+}
+
+/** The Total-dough figure: one or more proofing tubs, one per kg, with a
+    fractional last tub. 1 kg → one full tub; 1.5 kg → full + half; capped at 5. */
+export function tubRow(grams: number): string {
+  const kg = grams / 1000;
+  const fills: number[] = [];
+  if (kg >= 5) {
+    for (let i = 0; i < 5; i++) fills.push(1);
+  } else {
+    const full = Math.floor(kg);
+    for (let i = 0; i < full; i++) fills.push(1);
+    const frac = kg - full;
+    if (frac > 0.001) fills.push(Math.max(0.12, frac));
+    if (fills.length === 0) fills.push(0.12); // ~empty batch → one low tub
+  }
+  return fills.map((f) => tub(f)).join("");
+}
+
+/** A single proofing tub whose fill height tracks `ratio` (0–1). */
+function tub(ratio: number): string {
+  const r = Math.max(0, Math.min(1, ratio));
+  const top = 49 - r * 22; // dough crest y: 49 (near empty) → 27 (full)
+  const dough = `M17,${(top + 6).toFixed(1)} Q28,${top.toFixed(1)} 39,${(top + 6).toFixed(1)} L39,51 L17,51 Z`;
+  const bubbles: Array<[number, number, number]> = [
+    [23, 0.55, 2.2], [31, 0.75, 1.6], [28, 0.35, 1.3], [34, 0.62, 1.8], [20, 0.85, 1.4],
+  ];
+  const bubbleSvg = bubbles
+    .map(([x, f, rad]) => {
+      const y = (top + 7 + f * Math.max(0, 50 - (top + 7))).toFixed(1);
+      return `<circle cx="${x}" cy="${y}" r="${rad}" fill="#F8F2E1" stroke="#3B3327" stroke-width="0.7" opacity="0.7"/>`;
+    })
+    .join("");
+  return (
+    `<svg class="dough-fig" viewBox="0 0 56 60" width="40" height="43" fill="none">` +
+    `<ellipse cx="28" cy="55" rx="16" ry="2.4" fill="#3B3327" opacity="0.10"/>` +
+    `<g clip-path="url(#tubFill)"><path d="${dough}" fill="#A85E30" fill-opacity="0.26"/>${bubbleSvg}</g>` +
+    `<g stroke="#3B3327" stroke-width="0.8" opacity="0.35">` +
+    `<line x1="18.6" y1="28" x2="22" y2="28"/><line x1="18.8" y1="34" x2="21" y2="34"/>` +
+    `<line x1="19" y1="40" x2="22" y2="40"/><line x1="19.2" y1="46" x2="21" y2="46"/></g>` +
+    `<path d="M15,21 L41,21 L38,52 L18,52 Z" fill="none" stroke="#3B3327" stroke-width="1.8" stroke-linejoin="round"/>` +
+    `<path d="M11,21 L45,21" stroke="#3B3327" stroke-width="2.4" stroke-linecap="round"/>` +
+    `<path d="M11,25 L8,27 L8,31 L12,32" fill="none" stroke="#3B3327" stroke-width="1.4" stroke-linejoin="round"/>` +
+    `<path d="M45,25 L48,27 L48,31 L44,32" fill="none" stroke="#3B3327" stroke-width="1.4" stroke-linejoin="round"/>` +
+    `</svg>`
+  );
+}

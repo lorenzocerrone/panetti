@@ -107,7 +107,7 @@ export function initContent(): void {
   const page = (document.body.dataset.page ?? "about") as PageKind;
   setLocale(lang);
   applyShell(page);
-  hydrateIcons(); // fill the brand-mark [data-icon] placeholder
+  hydrateIcons(); // fill the static [data-icon] placeholders (nav/guide icons)
 
   if (page === "guides") {
     renderGuideList();
