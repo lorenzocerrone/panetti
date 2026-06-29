@@ -1,22 +1,46 @@
 :root {
-  --bg: #14100d;
-  --bg-2: #1c1712;
-  --panel: rgba(38, 30, 24, 0.72);
-  --panel-solid: #261e18;
-  --border: rgba(255, 196, 140, 0.12);
-  --border-strong: rgba(255, 196, 140, 0.28);
-  --text: #f4ece3;
-  --text-dim: #b6a594;
-  --text-faint: #82715f;
-  --accent: #ff7a3d;
-  --accent-2: #ffb24d;
-  --accent-soft: rgba(255, 122, 61, 0.14);
-  --green: #8fd14f;
-  --radius: 18px;
-  --radius-sm: 11px;
-  --shadow: 0 18px 50px -22px rgba(0, 0, 0, 0.8);
-  --font: "Inter", system-ui, sans-serif;
-  --serif: "Fraunces", Georgia, serif;
+  /* ── "Engineer's Codex" tokens · Palette Option B (sienna-led, warm) ──
+     Authoritative pan-* tokens from design_handoff_panetti_codex/tokens.css. */
+  --pan-paper:    #E3D8BE; /* page base (under the vignette) */
+  --pan-panel:    #F4EEDD; /* plates / cards */
+  --pan-inset:    #F8F2E1; /* input fields, figure wells */
+  --pan-ink:      #3B3327; /* primary text + line work */
+  --pan-muted:    #7C6E54; /* labels, secondary text, ALL technical data/% */
+  --pan-faint:    #9E8B68; /* captions, hints, units */
+  --pan-sienna:   #A85E30; /* THE accent: active / selected / key figures */
+  --pan-slate:    #5E6A66; /* a whisper — ferment guide ONLY */
+  --pan-rule:      rgba(62, 51, 36, 0.50); /* sheet / plate frame */
+  --pan-rule-mid:  rgba(62, 51, 36, 0.30); /* dividers, slider tracks */
+  --pan-rule-soft: rgba(62, 51, 36, 0.15); /* hairline table rows */
+  --pan-rule-card: rgba(62, 51, 36, 0.28); /* thin card border */
+  --pan-sienna-tint: rgba(168, 94, 48, 0.12);
+  --pan-muted-tint:  rgba(124, 110, 84, 0.12);
+  --pan-slate-tint:  rgba(94, 106, 102, 0.06);
+  --pan-slate-rule:  rgba(94, 106, 102, 0.55);
+  --pan-radius: 2px;
+
+  /* Legacy variable names mapped onto the new palette so the existing
+     ~200 references restyle in place (no renaming needed). */
+  --bg: var(--pan-paper);
+  --bg-2: #EEE5CF;
+  --panel: var(--pan-panel);
+  --panel-solid: var(--pan-panel);
+  --inset: var(--pan-inset);
+  --border: var(--pan-rule-card);
+  --border-strong: var(--pan-rule);
+  --text: var(--pan-ink);
+  --text-dim: var(--pan-muted);
+  --text-faint: var(--pan-faint);
+  --accent: var(--pan-sienna);
+  --accent-2: var(--pan-sienna);   /* no second loud accent — sienna leads */
+  --accent-soft: var(--pan-sienna-tint);
+  --slate: var(--pan-slate);
+  --radius: var(--pan-radius);
+  --radius-sm: var(--pan-radius);
+  --shadow: 0 1px 4px rgba(80, 60, 30, 0.10);
+  --font: "Space Grotesk", system-ui, sans-serif;   /* wordmark, headings, body */
+  --serif: "Space Grotesk", system-ui, sans-serif;  /* headings share the display face */
+  --mono: "Space Mono", ui-monospace, monospace;    /* labels, captions, ALL numbers */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -39,7 +63,9 @@ html { scroll-behavior: smooth; overflow-x: hidden; background: var(--bg); }
 
 body {
   font-family: var(--font);
-  background: var(--bg);
+  /* Warm parchment radial surface (fixed so it covers on scroll). */
+  background:
+    radial-gradient(135% 115% at 50% 32%, #F3ECDA 0%, #EEE5CF 50%, #E3D8BE 100%) fixed;
   color: var(--text);
   min-height: 100vh;
   line-height: 1.5;
@@ -48,14 +74,21 @@ body {
   overflow-x: hidden;
 }
 
+/* Drafting grid + edge vignette overlay — behind content, never on panels. */
 .bg-glow {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background:
-    radial-gradient(60% 50% at 78% 8%, rgba(255, 122, 61, 0.16), transparent 70%),
-    radial-gradient(50% 50% at 12% 88%, rgba(255, 178, 77, 0.10), transparent 70%),
-    linear-gradient(160deg, var(--bg), var(--bg-2));
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(62, 51, 36, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(62, 51, 36, 0.05) 1px, transparent 1px),
+    linear-gradient(rgba(62, 51, 36, 0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(62, 51, 36, 0.075) 1px, transparent 1px);
+  background-size: 26px 26px, 26px 26px, 130px 130px, 130px 130px;
+  box-shadow:
+    inset 0 0 220px rgba(90, 68, 38, 0.26),
+    inset 0 0 60px rgba(90, 68, 38, 0.14);
 }
 
 /* ---------- Top bar ---------- */
@@ -139,12 +172,9 @@ body {
 
 .panel {
   background: var(--panel);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid var(--border);
+  border: 1px solid var(--pan-rule);
   border-radius: var(--radius);
   padding: 20px;
-  box-shadow: var(--shadow);
 }
 
 .panel-head {
