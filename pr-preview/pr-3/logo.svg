@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" width="120" height="120">
+  <!-- dough dome on the scale platform -->
+  <path d="M10,33 C10,22 17,15 28,15 C39,15 46,22 46,33 A 2.5 2.5 0 0 1 43.5,34 L12.5,34 A 2.5 2.5 0 0 1 10,33 Z" transform="translate(22,8)" fill="#A85E30" fill-opacity="0.10" stroke="#3B3327" stroke-width="2" stroke-linejoin="round"></path>
+  <!-- platform -->
+  <rect x="21" y="42" width="58" height="5" rx="2.5" stroke="#3B3327" stroke-width="1.7" fill="none"></rect>
+  <line x1="47" y1="47" x2="47" y2="50" stroke="#3B3327" stroke-width="1.4"></line>
+  <line x1="53" y1="47" x2="53" y2="50" stroke="#3B3327" stroke-width="1.4"></line>
+  <!-- dial face + sienna needle -->
+  <circle cx="50" cy="71" r="21" stroke="#3B3327" stroke-width="2.4" fill="none"></circle>
+  <circle cx="50" cy="71" r="16.5" stroke="#3B3327" stroke-width="3.6" stroke-dasharray="0.7 3.9" opacity="0.85"></circle>
+  <line x1="50" y1="71" x2="61" y2="60" stroke="#A85E30" stroke-width="2"></line>
+  <circle cx="50" cy="71" r="2.6" fill="#A85E30"></circle>
+  <!-- feet -->
+  <line x1="41" y1="91" x2="37" y2="96" stroke="#3B3327" stroke-width="1.6"></line>
+  <line x1="59" y1="91" x2="63" y2="96" stroke="#3B3327" stroke-width="1.6"></line>
+</svg>
