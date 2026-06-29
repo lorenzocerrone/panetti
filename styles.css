@@ -609,8 +609,10 @@ input[type="range"]::-moz-range-track { height: 1.5px; }
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
-  color: var(--text-faint);
-  font-size: 12px;
+  color: var(--pan-faint);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
 }
 
 .toast {
@@ -761,22 +763,22 @@ a.brand { text-decoration: none; color: inherit; }
 .prose ul, .prose ol { margin: 12px 0; padding-left: 22px; }
 .prose li { margin: 6px 0; }
 .prose code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.88em;
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: 6px; padding: 1px 6px;
+  font-family: var(--mono);
+  font-size: 0.85em;
+  background: var(--pan-inset); border: 1px solid var(--pan-rule-card);
+  border-radius: var(--pan-radius); padding: 1px 6px;
 }
 .prose pre {
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: var(--radius-sm); padding: 14px;
+  background: var(--pan-inset); border: 1px solid var(--pan-rule-card);
+  border-radius: var(--pan-radius); padding: 14px;
   overflow-x: auto; margin: 14px 0;
 }
 .prose pre code { background: none; border: 0; padding: 0; }
 .prose blockquote {
-  margin: 14px 0; padding: 4px 16px;
-  border-left: 3px solid var(--accent);
-  color: var(--text); background: var(--accent-soft);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: 14px 0; padding: 6px 16px;
+  border-left: 3px solid var(--pan-slate);
+  color: var(--text); background: var(--pan-slate-tint);
+  border-radius: 0 var(--pan-radius) var(--pan-radius) 0;
 }
 .prose hr { border: 0; border-top: 1px solid var(--border); margin: 24px 0; }
 .prose table {
