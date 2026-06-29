@@ -91,37 +91,48 @@ body {
     inset 0 0 60px rgba(90, 68, 38, 0.14);
 }
 
-/* ---------- Top bar ---------- */
+/* ---------- Top bar (masthead) ---------- */
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 16px 24px;
   max-width: 1280px;
   margin: 0 auto 22px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(62, 51, 36, 0.45);
 }
 
-.brand { display: flex; align-items: center; gap: 14px; }
+.brand { display: flex; align-items: center; gap: 16px; }
+.brand-logo { width: 56px; height: 56px; flex: none; display: block; }
+.wordmark { display: flex; flex-direction: column; gap: 3px; }
 
 /* Inline line-icons: inherit the surrounding text size & colour (currentColor). */
 .icon { width: 1.1em; height: 1.1em; vertical-align: -0.18em; flex: none; }
 
-.brand-mark {
-  font-size: 38px;
-  color: var(--accent);
-  filter: drop-shadow(0 6px 14px rgba(255, 122, 61, 0.4));
-  animation: float 5s ease-in-out infinite;
-}
-@keyframes float { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-6px) rotate(4deg); } }
-
 .brand h1 {
-  font-family: var(--serif);
-  font-size: 30px;
-  font-weight: 600;
-  letter-spacing: -0.5px;
+  font-family: var(--font);
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--pan-ink);
 }
-.tagline { color: var(--text-faint); font-size: 13px; }
+.brand-sub {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--pan-muted);
+}
+.tagline {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: var(--pan-faint);
+}
 
 .mode-toggle {
   display: inline-flex;
@@ -331,8 +342,7 @@ input[type="range"]::-moz-range-thumb {
   color: var(--accent);
 }
 
-.topbar-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.lang-seg button { padding: 7px 12px; font-size: 12px; min-width: 38px; }
+.topbar-right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 
 /* ---------- Subcards (guide + preferment) ---------- */
 .subcard {
@@ -567,21 +577,28 @@ input[type="range"]::-moz-range-thumb {
 a.brand { text-decoration: none; color: inherit; }
 
 /* Topbar page navigation */
-.nav-links { display: inline-flex; gap: 4px; flex-wrap: wrap; }
+.nav-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding-right: 18px;
+  border-right: 1px solid var(--pan-rule-mid);
+}
 .nav-link {
   text-decoration: none;
-  color: var(--text-dim);
-  font-size: 13px; font-weight: 600;
-  padding: 7px 13px; border-radius: 999px;
-  border: 1px solid transparent;
-  transition: all 0.15s;
+  color: var(--pan-muted);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 2px 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.12s ease, border-color 0.12s ease;
 }
-.nav-link:hover { color: var(--text); border-color: var(--border); }
-.nav-link.active {
-  color: var(--accent-2);
-  background: var(--accent-soft);
-  border-color: var(--border-strong);
-}
+.nav-link:hover { color: var(--pan-ink); }
+.nav-link.active { color: var(--pan-sienna); border-bottom-color: var(--pan-sienna); }
 
 /* About: a single, comfortably narrow reading column. */
 .content-layout { display: block; max-width: 760px; }
