@@ -131,11 +131,15 @@ function renderSliders(): void {
         <input type="range" min="${s.min}" max="${s.max}" step="${s.step}"
                value="${state.params[s.key]}" data-key="${s.key}" />`;
       const input = row.querySelector<HTMLInputElement>("input")!;
+      // Oil & Sugar dim to half-opacity while sitting at 0%.
+      const dimAtZero = () => row.classList.toggle("is-zero", Number(input.value) === 0);
       setFill(input, s.min, s.max);
+      dimAtZero();
       input.addEventListener("input", () => {
         state.params[s.key] = Number(input.value);
         row.querySelector(`[data-val="${s.key}"]`)!.textContent = input.value;
         setFill(input, s.min, s.max);
+        dimAtZero();
         render();
       });
       wrap.appendChild(row);

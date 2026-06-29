@@ -327,47 +327,56 @@ body {
 }
 .stepper:hover { border-color: var(--pan-sienna); color: var(--pan-sienna); }
 
-.sliders { display: flex; flex-direction: column; gap: 16px; }
+.sliders { display: flex; flex-direction: column; gap: 18px; }
 .slider-row .sl-head {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 7px;
 }
-.slider-row .sl-name { font-size: 13px; font-weight: 600; }
-.slider-row .sl-val { font-size: 14px; font-weight: 700; color: var(--accent-2); }
-.slider-row .sl-val small { color: var(--text-faint); font-weight: 500; }
+.slider-row .sl-name { font-family: var(--font); font-size: 13px; font-weight: 500; color: var(--pan-ink); }
+.slider-row .sl-val { font-family: var(--mono); font-size: 14px; font-weight: 700; color: var(--pan-sienna); }
+.slider-row .sl-val small { color: var(--pan-faint); font-weight: 400; font-size: 12px; }
 
+/* Ruler-tick slider: a 1.5px track + sienna fill (via --fill) with a row of
+   ruler ticks just below, and a 16px ringed thumb. */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 6px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2)) no-repeat;
-  background-size: var(--fill, 50%) 100%;
-  background-color: rgba(255, 255, 255, 0.08);
+  height: 20px;
+  background:
+    linear-gradient(var(--pan-sienna), var(--pan-sienna)) 0 50% / var(--fill, 50%) 1.5px no-repeat,
+    repeating-linear-gradient(90deg, var(--pan-rule-mid) 0 1px, transparent 1px 13px) 0 100% / 100% 6px no-repeat,
+    linear-gradient(var(--pan-rule-mid), var(--pan-rule-mid)) 0 50% / 100% 1.5px no-repeat;
   cursor: pointer;
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 18px; height: 18px;
+  width: 16px; height: 16px;
+  margin-top: -7px;
   border-radius: 50%;
-  background: #fff;
-  border: 3px solid var(--accent);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  background: var(--pan-panel);
+  border: 2px solid var(--pan-sienna);
 }
+input[type="range"]::-webkit-slider-runnable-track { height: 1.5px; }
 input[type="range"]::-moz-range-thumb {
-  width: 18px; height: 18px;
+  width: 16px; height: 16px;
   border-radius: 50%;
-  background: #fff;
-  border: 3px solid var(--accent);
+  background: var(--pan-panel);
+  border: 2px solid var(--pan-sienna);
 }
+input[type="range"]::-moz-range-track { height: 1.5px; }
+
+/* Oil & Sugar at 0%: dim the whole row, neutralise the thumb ring. */
+.slider-row.is-zero { opacity: 0.5; }
+.slider-row.is-zero input[type="range"]::-webkit-slider-thumb { border-color: rgba(62, 51, 36, 0.4); }
+.slider-row.is-zero input[type="range"]::-moz-range-thumb { border-color: rgba(62, 51, 36, 0.4); }
 
 .yeast-type { margin-top: 20px; }
 .yeast-type > label {
-  font-size: 12px; font-weight: 600; color: var(--text-faint);
-  text-transform: uppercase; letter-spacing: 0.4px;
+  font-family: var(--mono); font-size: 10px; font-weight: 400; color: var(--pan-muted);
+  text-transform: uppercase; letter-spacing: 0.16em;
   display: block; margin-bottom: 8px;
 }
 /* Leavening: a full-width 4-up segmented control (tighter segments). */
@@ -395,19 +404,27 @@ input[type="range"]::-moz-range-thumb {
 /* ---------- Subcards (guide + preferment) ---------- */
 .subcard {
   margin-top: 18px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
+  background: var(--pan-inset);
+  border: 1px solid var(--pan-rule-card);
+  border-radius: var(--pan-radius);
   padding: 14px;
 }
 .subcard-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
-.subcard-head h3 { font-family: var(--serif); font-size: 16px; font-weight: 600; }
+.subcard-head h3 { font-family: var(--font); font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
 .guide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .guide-out {
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  margin-top: 13px; font-size: 13px; color: var(--text-dim);
+  margin-top: 13px; font-family: var(--mono); font-size: 12px; color: var(--pan-muted);
 }
-.guide-out strong { color: var(--accent-2); font-size: 16px; font-weight: 700; }
+.guide-out strong { color: var(--pan-ink); font-family: var(--mono); font-size: 15px; font-weight: 700; }
+
+/* Ferment guide — the single slate accent: a dashed slate well. */
+#ferment-guide {
+  background: var(--pan-slate-tint);
+  border: 1px dashed var(--pan-slate-rule);
+}
+#ferment-guide .subcard-head h3,
+#ferment-guide .subcard-head .icon { color: var(--pan-slate); }
 
 #preferment .seg button { padding: 9px 12px; }
 #pf-hint { margin-top: 10px; line-height: 1.45; }
